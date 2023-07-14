@@ -8,8 +8,9 @@ export async function advanceCycleEndpoint(req: Request, res: Response) {
   const user = await getUser(req, res);
 
   const ids = await getCleanRoomIds();
-  const { roomId } = req.body as {
+  const { roomId, andKillUserId } = req.body as {
     roomId: string;
+    andKillUserId?: string | null | undefined;
   };
   if (!ids.includes(roomId)) {
     return res.json({ error: "room stale" });
@@ -20,6 +21,7 @@ export async function advanceCycleEndpoint(req: Request, res: Response) {
     return res.json({ error: "not member" });
   }
 
+  if (andKillUserId) room.diedTonight.push(andKillUserId);
   await advanceCycle(room, user);
 
   res.json({ room });

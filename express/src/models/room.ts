@@ -1,20 +1,21 @@
 export interface Room {
-  roomId: string;
-  name: string;
-  memberIds: string[];
-  dead: string[];
-  admins: string[];
-  givenRoles: Record<string, string> | null;
-  diedTonight: string[];
-  nightCycle: number;
-  loversShown: boolean;
-  skipOneWerewolfNight: boolean;
+  roomId: string
+  name: string
+  memberIds: string[]
+  dead: string[]
+  admins: string[]
+  givenRoles: Record<string, string> | null
+  diedTonight: string[]
+  nightCycle: number
+  loversShown: boolean
+  skipOneWerewolfNight: boolean
+  roleCount: Record<string, number>
 }
 
 export function newRoom(roomId: string): Room {
   return {
     roomId,
-    name: "",
+    name: '',
     memberIds: [],
     dead: [],
     admins: [],
@@ -23,7 +24,8 @@ export function newRoom(roomId: string): Room {
     nightCycle: 0,
     loversShown: false,
     skipOneWerewolfNight: false,
-  };
+    roleCount: {}
+  }
 }
 
 /**

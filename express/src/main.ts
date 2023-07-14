@@ -12,6 +12,7 @@ import { startGame } from "./endpoints/startGame";
 import { advanceCycleEndpoint } from "./endpoints/advanceCycle";
 import { killEndpoint } from "./endpoints/kill";
 import { join } from "./endpoints/join";
+import { updateRoomEndpoint } from "./endpoints/updateRoom";
 const app = express();
 const port = 3000;
 
@@ -44,6 +45,7 @@ async function main() {
   app.post("/advance-cycle", advanceCycleEndpoint);
   app.post("/kill", killEndpoint);
   app.post("/join", join);
+  app.post("/update-room", updateRoomEndpoint);
 
   await init();
 

@@ -11,13 +11,9 @@ import { allRoles, roleName } from '@/models/role'
 const router = useRouter()
 const room = ref(null as Room | null)
 
-let roleCount = ref({} as Record<string, number>)
-allRoles.forEach((role) => {
-  roleCount.value[role] = 0
-})
-
 const sumOfRoles = computed(() => {
-  return Object.values(roleCount.value).reduce((a, b) => a + b, 0)
+  if (!room.value) return 0
+  return Object.values(room.value.roleCount).reduce((a, b) => a + b, 0)
 })
 
 const canStart = computed(() => {
@@ -56,6 +52,11 @@ onUnmounted(() => {
 
 async function timer() {
   room.value = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
+  if (!Object.keys(room.value?.roleCount ?? {}).length) {
+    allRoles.forEach((role) => {
+      room.value && (room.value.roleCount[role] = 0)
+    })
+  }
   if (!room.value?.memberIds.includes(store.user?.userId ?? '')) {
     return router.push('/')
   }
@@ -65,9 +66,11 @@ async function timer() {
   await fetchMembers(room.value)
 }
 
-function changeCount(role: string, diff: number) {
-  if (roleCount.value[role] + diff < 0) return
-  roleCount.value[role] += diff
+async function changeCount(role: string, diff: number) {
+  if (!room.value) return
+  if (room.value.roleCount[role] + diff < 0) return
+  room.value.roleCount[role] += diff
+  await api.post('/update-room', { room: room.value })
 }
 
 async function giveRoles() {
@@ -75,9 +78,15 @@ async function giveRoles() {
 
   await api.post(`/start-game`, {
     roomId: room.value?.roomId,
-    roleCount: roleCount.value
+    roleCount: room.value?.roleCount
   })
   await timer()
+}
+
+async function kick(userId: string) {
+  if (!room.value) return
+  room.value.memberIds = room.value.memberIds.filter((val) => val !== userId)
+  await api.post('/update-room', { room: room.value })
 }
 </script>
 
@@ -89,13 +98,15 @@ async function giveRoles() {
     <div class="row" v-for="role in allRoles" :key="role">
       <span>{{ roleName(role) }}</span>
       <span
-        ><button @click="changeCount(role, -1)" v-if="isAdmin">-</button> {{ roleCount[role] }}
+        ><button @click="changeCount(role, -1)" v-if="isAdmin">-</button>
+        {{ room?.roleCount[role] }}
         <button @click="changeCount(role, 1)" v-if="isAdmin">+</button></span
       >
     </div>
     <div class="row">{{ members.length }} members:</div>
     <div class="row" v-for="member in members" :key="member.userId">
-      {{ member.name }} <button class="btn" v-if="isAdmin">kick</button>
+      {{ member.name }}
+      <button class="btn" v-if="isAdmin" @click="kick(member.userId)">kick</button>
     </div>
     <div class="row" v-if="isAdmin">
       <button
