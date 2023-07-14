@@ -1,0 +1,30 @@
+{
+  "name": "random-unicode-emoji",
+  "version": "1.0.5",
+  "description": "A simple JavaScript package that returns random Unicode emojis. 📜",
+  "main": "src/random-unicode-emoji.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NicPWNs/random-unicode-emoji.git"
+  },
+  "dependencies": {
+  },
+  "keywords": [
+    "emoji",
+    "random",
+    "unicode"
+  ],
+  "author": {
+    "name" : "NicPWNs",
+    "email" : "nic@nicpwns.com",
+    "url" : "https://github.com/NicPWNs"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicPWNs/random-unicode-emoji/issues"
+  },
+  "homepage": "https://github.com/NicPWNs/random-unicode-emoji"
+}
