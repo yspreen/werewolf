@@ -7,4 +7,5 @@ export enum Role {
   THIEF,
   CUPID,
   LITTLE_GIRL,
+  DISEASED
 }

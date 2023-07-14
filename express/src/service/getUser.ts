@@ -7,7 +7,6 @@ import { User, newUser } from "../models/user";
 
 export async function getUserId(req: Request, res: Response): Promise<string> {
   let sessionId = req.cookies.sessionId || "";
-  console.log({ sessionId });
   let userId = await redis.get(`session:${sessionId}`);
 
   if (!userId) {
@@ -29,4 +28,11 @@ export async function getUser(req: Request, res: Response): Promise<User> {
   const user = newUser(userId);
   updateUser(user);
   return user;
+}
+
+export async function findUser(userId: string): Promise<User> {
+  return JSON.parse(
+    (await redis.get(`user:${userId}:profile`)) ??
+      JSON.stringify(newUser(userId))
+  );
 }
