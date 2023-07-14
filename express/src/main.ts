@@ -8,6 +8,10 @@ import { whoAmI } from "./endpoints/whoAmI";
 import bodyParser from "body-parser";
 import { getRoomEndpoint } from "./endpoints/getRoom";
 import { getUserEndpoint } from "./endpoints/getUser";
+import { startGame } from "./endpoints/startGame";
+import { advanceCycleEndpoint } from "./endpoints/advanceCycle";
+import { killEndpoint } from "./endpoints/kill";
+import { join } from "./endpoints/join";
 const app = express();
 const port = 3000;
 
@@ -36,6 +40,10 @@ async function main() {
   app.get("/whoami", whoAmI);
   app.get("/room/:roomId", getRoomEndpoint);
   app.get("/user/:userId", getUserEndpoint);
+  app.post("/start-game", startGame);
+  app.post("/advance-cycle", advanceCycleEndpoint);
+  app.post("/kill", killEndpoint);
+  app.post("/join", join);
 
   await init();
 

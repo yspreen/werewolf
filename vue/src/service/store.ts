@@ -3,5 +3,6 @@ import { reactive } from 'vue'
 
 export const store = reactive({
   user: null as User | null,
-  users: {} as Record<string, User>
+  users: {} as Record<string, User>,
+  nightMode: false
 })

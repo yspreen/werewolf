@@ -8,7 +8,7 @@ export async function loadUser(noReload: boolean = false): Promise<User | null> 
   store.user = await api.get('/whoami')
   if (noReload) return store.user
 
-  if (!store.user) window.location.href = '/'
+  if (!store.user?.name) window.location.href = '/'
 
   return store.user
 }
