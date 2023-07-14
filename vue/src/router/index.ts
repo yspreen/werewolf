@@ -26,6 +26,14 @@ const router = createRouter({
       component: () => import('../components/OneRoom.vue')
     },
     {
+      path: '/playing/:roomId',
+      name: 'playing',
+      // route level code-splitting
+      // this generates a separate chunk (<page>.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../components/RoomInPlay.vue')
+    },
+    {
       path: '/set-name',
       name: 'set-name',
       // route level code-splitting
