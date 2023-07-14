@@ -1,0 +1,11 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "include": ["./src/**/*"],
+  "files": ["./src/module.d.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "module": "CommonJS",
+    "types": ["node"],
+    "esModuleInterop": true
+  }
+}
