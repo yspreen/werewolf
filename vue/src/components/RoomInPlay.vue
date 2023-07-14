@@ -20,6 +20,9 @@ const members = computed(() => {
 const aliveMembers = computed(() => {
   return members.value.filter((member) => !room.value?.dead.includes(member.userId))
 })
+const futureAliveMembers = computed(() => {
+  return aliveMembers.value.filter((member) => !room.value?.diedTonight.includes(member.userId))
+})
 
 const reveal = ref(false)
 const selectedUser = ref(null as string | null)
@@ -127,8 +130,10 @@ function toggleReveal() {
   }
 }
 
-async function advanceCycle() {
-  await api.post('/advance-cycle', { roomId: room.value?.roomId })
+async function advanceCycle(andKillUserId: string | null = null) {
+  voteResultSelection.value = false
+  selectedUser.value = null
+  await api.post('/advance-cycle', { roomId: room.value?.roomId, andKillUserId })
   await timer()
 }
 
@@ -137,6 +142,12 @@ async function killUser(userId: string | null) {
   if (!userId) return
   await api.post('/kill', { userId, roomId: room.value?.roomId })
   await timer()
+}
+
+const voteResultSelection = ref(false)
+
+function startVoteResult() {
+  voteResultSelection.value = true
 }
 </script>
 
@@ -161,7 +172,29 @@ async function killUser(userId: string | null) {
     </div>
 
     <div class="row mt-1" v-if="!waitingForDelay">
-      <button class="btn" @click="advanceCycle" v-if="!isDead && room?.nightCycle === 0">
+      <div class="full-width" v-if="voteResultSelection">
+        <div>who got voted out?</div>
+        <div v-for="member in futureAliveMembers" :key="member.userId" class="row">
+          {{ member.name }}
+          <button
+            class="btn"
+            @click="selectedUser = member.userId"
+            v-if="selectedUser !== member.userId"
+          >
+            select
+          </button>
+          <button class="btn" @click="selectedUser = null" v-else>deselect</button>
+        </div>
+        <button class="btn" v-if="selectedUser" @click="advanceCycle(selectedUser)">
+          confirm {{ store.users[selectedUser ?? '']?.name }}
+        </button>
+        <button class="btn" v-if="!selectedUser" @click="advanceCycle()">nobody killed</button>
+      </div>
+      <button
+        class="btn"
+        @click="startVoteResult()"
+        v-if="!isDead && room?.nightCycle === 0 && !voteResultSelection"
+      >
         start night
       </button>
       <div class="full-width" v-if="!isDead && isWerewolf && room?.nightCycle === 4">
