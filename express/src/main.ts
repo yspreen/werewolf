@@ -4,10 +4,10 @@ import { init } from "./service/redis";
 import { newRoom } from "./endpoints/newRoom";
 import { setName } from "./endpoints/setName";
 import cookieParser from "cookie-parser";
-import { whoAmI } from "./endpoints/whoAmi";
+import { whoAmI } from "./endpoints/whoAmI";
 import bodyParser from "body-parser";
-import { randomEmoji } from "./service/emoji";
 import { getRoomEndpoint } from "./endpoints/getRoom";
+import { getUserEndpoint } from "./endpoints/getUser";
 const app = express();
 const port = 3000;
 
@@ -35,14 +35,7 @@ async function main() {
   app.post("/name", setName);
   app.get("/whoami", whoAmI);
   app.get("/room/:roomId", getRoomEndpoint);
-  app.get("/user/:userId", getRoomEndpoint);
-  // app.get("/lotsofrandomemoji", (_, res) => {
-  //   let str = "";
-  //   for (let index = 0; index < 10000; index++) {
-  //     str += randomEmoji();
-  //   }
-  //   res.send(str);
-  // });
+  app.get("/user/:userId", getUserEndpoint);
 
   await init();
 
