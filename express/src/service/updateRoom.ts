@@ -19,6 +19,7 @@ export function setWinner(room: Room, winner: WINNER) {
 }
 
 export async function checkWinner(room: Room, includeDeathsFromTonight: boolean) {
+  if (!room.givenRoles) return
   if (room.winner) return setWinner(room, room.winner)
 
   const alive = room.memberIds.filter((userId) => {
