@@ -1,9 +1,11 @@
+import { KeyObject } from 'crypto'
 import { Role } from '../models/role'
 import { CYCLE_COUNT, NightCycle, Room } from '../models/room'
-import { ensureLoverKilled, updateRoom } from './updateRoom'
+import { checkWinner, ensureLoverKilled, updateRoom } from './updateRoom'
 
 export async function advanceCycle(room: Room) {
   ensureLoverKilled(room)
+
   if (room.nightCycle === NightCycle.LOVERS) {
     room.loversShown = true
   }
@@ -20,46 +22,35 @@ export async function advanceCycle(room: Room) {
   if (room.nightCycle === NightCycle.SEER && !hasSeer(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.WITCH && !hasWitch(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.HUNTER && !hunterDied(room)) room.nightCycle += 1
-  if (room.nightCycle === CYCLE_COUNT) room.nightCycle = NightCycle.DAY
+  if (room.nightCycle === CYCLE_COUNT) {
+    room.nightCycle = NightCycle.DAY
+
+    await checkWinner(room, true)
+  }
 
   await updateRoom(room)
 }
 
-export function hasThief(room: Room): boolean {
+export function hasRole(room: Room, checkRole: Role): boolean {
   const roles = room.givenRoles ?? {}
   for (const userId of Object.keys(roles)) {
     if (room.dead.includes(userId)) continue
     const role = roles[userId]
-    if (role == Role[Role.THIEF]) return true
+    if (role == Role[checkRole]) return true
   }
   return false
+}
+export function hasThief(room: Room): boolean {
+  return hasRole(room, Role.THIEF)
 }
 export function hasCupid(room: Room): boolean {
-  const roles = room.givenRoles ?? {}
-  for (const userId of Object.keys(roles)) {
-    if (room.dead.includes(userId)) continue
-    const role = roles[userId]
-    if (role == Role[Role.CUPID]) return true
-  }
-  return false
+  return hasRole(room, Role.CUPID)
 }
 export function hasSeer(room: Room): boolean {
-  const roles = room.givenRoles ?? {}
-  for (const userId of Object.keys(roles)) {
-    if (room.dead.includes(userId)) continue
-    const role = roles[userId]
-    if (role == Role[Role.SEER]) return true
-  }
-  return false
+  return hasRole(room, Role.SEER)
 }
 export function hasWitch(room: Room): boolean {
-  const roles = room.givenRoles ?? {}
-  for (const userId of Object.keys(roles)) {
-    if (room.dead.includes(userId)) continue
-    const role = roles[userId]
-    if (role == Role[Role.WITCH]) return true
-  }
-  return false
+  return hasRole(room, Role.WITCH)
 }
 export function hunterDied(room: Room): boolean {
   for (const died of room.diedTonight) {
