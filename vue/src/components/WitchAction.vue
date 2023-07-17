@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { Role, roleName } from '@/models/role'
+import { Role } from '@/models/role'
 import { NightCycle } from '@/models/room'
-import type { User } from '@/models/user'
 import { advanceCycle } from '@/service/advanceCycle'
 import { api } from '@/service/api'
 import { aliveMembers, myRole, store } from '@/service/store'
