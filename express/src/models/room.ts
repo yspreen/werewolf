@@ -1,3 +1,5 @@
+export type WINNER = 'LOVERS' | 'VILLAGERS' | 'WEREWOLVES' | 'JESTER'
+
 export interface Room {
   roomId: string
   name: string
@@ -12,7 +14,7 @@ export interface Room {
   skipOneWerewolfNight: boolean
   roleCount: Record<string, number>
   witchPotions: number[]
-  winner: 'LOVERS' | 'VILLAGERS' | 'WEREWOLVES' | 'JESTER' | null
+  winner: WINNER | null
 }
 
 export function newRoom(roomId: string): Room {

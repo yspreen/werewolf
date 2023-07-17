@@ -7,7 +7,8 @@ export enum Role {
   THIEF,
   CUPID,
   LITTLE_GIRL,
-  DISEASED
+  DISEASED,
+  JESTER
 }
 
 export const allRoles: string[] = Object.values(Role)

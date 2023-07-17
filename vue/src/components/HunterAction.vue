@@ -2,7 +2,7 @@
 import { Role } from '@/models/role'
 import { NightCycle } from '@/models/room'
 import { api } from '@/service/api'
-import { aliveMembers, futureAliveMembers } from '@/service/store'
+import { futureAliveMembers } from '@/service/store'
 import { store, myRole } from '@/service/store'
 import { computed, ref } from 'vue'
 

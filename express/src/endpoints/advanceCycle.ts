@@ -3,6 +3,8 @@ import { getRoom } from '../service/getRoom'
 import { getCleanRoomIds } from '../service/getCleanRoomIds'
 import { getUser } from '../service/getUser'
 import { advanceCycle } from '../service/advanceCycle'
+import { Role } from '../models/role'
+import { setWinner } from '../service/updateRoom'
 
 export async function advanceCycleEndpoint(req: Request, res: Response) {
   const user = await getUser(req, res)
@@ -30,6 +32,8 @@ export async function advanceCycleEndpoint(req: Request, res: Response) {
         if (!room.diedTonight.includes(loverId)) room.diedTonight.push(loverId)
       })
     }
+
+    if (room.givenRoles?.[andKillUserId] === Role[Role.JESTER]) setWinner(room, 'JESTER')
   }
   await advanceCycle(room)
 

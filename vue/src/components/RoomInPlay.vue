@@ -16,6 +16,7 @@ import HunterAction from './HunterAction.vue'
 import WitchAction from './WitchAction.vue'
 import LoverAction from './LoverAction.vue'
 import CycleDisplay from './CycleDisplay.vue'
+import ShowWinner from './ShowWinner.vue'
 
 const router = useRouter()
 
@@ -62,7 +63,8 @@ async function timer() {
 </script>
 
 <template>
-  <div class="col">
+  <show-winner v-if="store.room?.winner" />
+  <div class="col" v-else>
     <cycle-display :waitingForDelay="waitingForDelay" />
     <role-display />
     <death-display v-if="!waitingForDelay" />
