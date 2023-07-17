@@ -8,6 +8,6 @@ import { isDead, store } from '@/service/store'
     {{ store.room?.diedTonight.map((userId) => store.users[userId].name).join(', ') }}
   </div>
   <div class="row mt-1" v-if="isDead || store.room?.diedTonight.includes(store.user?.userId ?? '')">
-    You died 💀
+    You died 💀 <a href="/"> leave game </a>
   </div>
 </template>

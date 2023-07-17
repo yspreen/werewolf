@@ -1,28 +1,37 @@
-import { Request, Response } from "express";
-import { getRoom } from "../service/getRoom";
-import { getCleanRoomIds } from "../service/getCleanRoomIds";
-import { getUser } from "../service/getUser";
-import { advanceCycle } from "../service/advanceCycle";
+import { Request, Response } from 'express'
+import { getRoom } from '../service/getRoom'
+import { getCleanRoomIds } from '../service/getCleanRoomIds'
+import { getUser } from '../service/getUser'
+import { advanceCycle } from '../service/advanceCycle'
 
 export async function advanceCycleEndpoint(req: Request, res: Response) {
-  const user = await getUser(req, res);
+  const user = await getUser(req, res)
 
-  const ids = await getCleanRoomIds();
+  const ids = await getCleanRoomIds()
   const { roomId, andKillUserId } = req.body as {
-    roomId: string;
-    andKillUserId?: string | null | undefined;
-  };
+    roomId: string
+    andKillUserId?: string | null | undefined
+  }
   if (!ids.includes(roomId)) {
-    return res.json({ error: "room stale" });
+    return res.json({ error: 'room stale' })
   }
 
-  const room = await getRoom(roomId);
+  const room = await getRoom(roomId)
   if (!room.memberIds.includes(user.userId)) {
-    return res.json({ error: "not member" });
+    return res.json({ error: 'not member' })
   }
 
-  if (andKillUserId) room.diedTonight.push(andKillUserId);
-  await advanceCycle(room, user);
+  if (andKillUserId) {
+    /// Vote during the day
+    room.diedTonight.push(andKillUserId)
 
-  res.json({ room });
+    if (room.lovers.includes(andKillUserId)) {
+      room.lovers.forEach((loverId) => {
+        if (!room.diedTonight.includes(loverId)) room.diedTonight.push(loverId)
+      })
+    }
+  }
+  await advanceCycle(room, user)
+
+  res.json({ room })
 }
