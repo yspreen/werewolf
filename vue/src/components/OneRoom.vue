@@ -1,26 +1,25 @@
 <script setup lang="ts">
 import { store } from '@/service/store'
-import type { Room } from '@/models/room'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '@/service/api'
 import { loadUser } from '@/service/loadUser'
 import { fetchMembers } from '@/service/fetchMembers'
-import { allRoles, roleName } from '@/models/role'
+import { allRoles } from '@/models/role'
+import LobbyRoles from './LobbyRoles.vue'
 
 const router = useRouter()
-const room = ref(null as Room | null)
 
 const sumOfRoles = computed(() => {
-  if (!room.value) return 0
-  return Object.values(room.value.roleCount).reduce((a, b) => a + b, 0)
+  if (!store.room) return 0
+  return Object.values(store.room.roleCount).reduce((a, b) => a + b, 0)
 })
 
 const canStart = computed(() => {
   return sumOfRoles.value == members.value.length
 })
 const isAdmin = computed(() => {
-  return room.value?.admins.includes(store.user?.userId ?? '')
+  return store.room?.admins.includes(store.user?.userId ?? '')
 })
 
 const startButtonTitle = computed(() => {
@@ -30,7 +29,7 @@ const startButtonTitle = computed(() => {
 })
 
 const members = computed(() => {
-  let memberIds = room.value?.memberIds
+  let memberIds = store.room?.memberIds
   if (!memberIds) return []
   return memberIds.map((memberId) => store.users[memberId]).filter((user) => user)
 })
@@ -51,58 +50,43 @@ onUnmounted(() => {
 })
 
 async function timer() {
-  room.value = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
-  if (!Object.keys(room.value?.roleCount ?? {}).length) {
+  store.room = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
+  if (!Object.keys(store.room?.roleCount ?? {}).length) {
     allRoles.forEach((role) => {
-      room.value && (room.value.roleCount[role] = 0)
+      store.room && (store.room.roleCount[role] = 0)
     })
   }
-  if (!room.value?.memberIds.includes(store.user?.userId ?? '')) {
+  if (!store.room?.memberIds.includes(store.user?.userId ?? '')) {
     return router.push('/')
   }
-  if (room.value.givenRoles !== null) {
+  if (store.room.givenRoles !== null) {
     return router.push(`/playing/${router.currentRoute.value.params.roomId}`)
   }
-  await fetchMembers(room.value)
-}
-
-async function changeCount(role: string, diff: number) {
-  if (!room.value) return
-  if (room.value.roleCount[role] + diff < 0) return
-  room.value.roleCount[role] += diff
-  await api.post('/update-room', { room: room.value })
+  await fetchMembers(store.room)
 }
 
 async function giveRoles() {
   if (!canStart.value) return
 
   await api.post(`/start-game`, {
-    roomId: room.value?.roomId,
-    roleCount: room.value?.roleCount
+    roomId: store.room?.roomId,
+    roleCount: store.room?.roleCount
   })
   await timer()
 }
 
 async function kick(userId: string) {
-  if (!room.value) return
-  room.value.memberIds = room.value.memberIds.filter((val) => val !== userId)
-  await api.post('/update-room', { room: room.value })
+  if (!store.room) return
+  store.room.memberIds = store.room.memberIds.filter((val) => val !== userId)
+  await api.post('/update-room', { room: store.room })
 }
 </script>
 
 <template>
   <div class="col">
     <div>your name: {{ store.user?.name }}</div>
-    <div class="row">{{ room?.name }}</div>
-    <div class="row">roles:</div>
-    <div class="row" v-for="role in allRoles" :key="role">
-      <span>{{ roleName(role) }}</span>
-      <span
-        ><button @click="changeCount(role, -1)" v-if="isAdmin">-</button>
-        {{ room?.roleCount[role] }}
-        <button @click="changeCount(role, 1)" v-if="isAdmin">+</button></span
-      >
-    </div>
+    <div class="row">{{ store.room?.name }}</div>
+    <lobby-roles />
     <div class="row">{{ members.length }} members:</div>
     <div class="row" v-for="member in members" :key="member.userId">
       {{ member.name }}
