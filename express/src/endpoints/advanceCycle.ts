@@ -31,7 +31,7 @@ export async function advanceCycleEndpoint(req: Request, res: Response) {
       })
     }
   }
-  await advanceCycle(room, user)
+  await advanceCycle(room)
 
   res.json({ room })
 }

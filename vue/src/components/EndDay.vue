@@ -33,7 +33,7 @@ async function start() {
     </div>
     <button class="btn" @click="start()">
       <span v-if="selectedUser"> confirm {{ store.users[selectedUser ?? '']?.name }} </span>
-      <span v-else>nobody killed</span>
+      <span v-else>nobody voted</span>
     </button>
   </div>
   <button

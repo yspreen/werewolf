@@ -2,7 +2,7 @@
 import { Role } from '@/models/role'
 import { NightCycle } from '@/models/room'
 import { api } from '@/service/api'
-import { aliveMembers } from '@/service/store'
+import { aliveMembers, futureAliveMembers } from '@/service/store'
 import { store, myRole } from '@/service/store'
 import { computed, ref } from 'vue'
 
@@ -19,7 +19,7 @@ async function killUser(userId: string | null) {
 <template>
   <div class="full-width" v-if="isHunter && store.room?.nightCycle === +NightCycle.HUNTER">
     <div>You got killed. As the hunter you choose one person to take with you:</div>
-    <div v-for="member in aliveMembers" :key="member.userId" class="row">
+    <div v-for="member in futureAliveMembers" :key="member.userId" class="row">
       {{ member.name }}
       <button
         class="btn"

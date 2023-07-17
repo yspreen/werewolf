@@ -1,51 +1,52 @@
 <script lang="ts" setup>
-import { Role, roleName } from '@/models/role'
+import { Role } from '@/models/role'
 import { NightCycle } from '@/models/room'
-import type { User } from '@/models/user'
-import { advanceCycle } from '@/service/advanceCycle'
+import { api } from '@/service/api'
 import { aliveMembers, myRole, store } from '@/service/store'
 import { computed, ref } from 'vue'
 
+const firstLover = ref(null as string | null)
 const selectedUser = ref(null as string | null)
-const revealed = ref(null as User | null)
 
-const isSeer = computed(() => {
-  return myRole.value === Role[Role.SEER]
-})
+const isCupid = computed(() => myRole.value === Role[Role.CUPID])
 
-async function seerStep() {
-  if (!revealed.value && !selectedUser.value) return
-  if (revealed.value) {
-    await advanceCycle()
-    revealed.value = null
+async function step() {
+  const userId = selectedUser.value
+  selectedUser.value = null
+  if (!userId) return
+  if (firstLover.value) {
+    await api.post('/cupid', {
+      roomId: store.room?.roomId,
+      lovers: [firstLover.value, userId]
+    })
     return
   }
-  revealed.value = store.users[selectedUser.value ?? '']
-  selectedUser.value = null
+  firstLover.value = userId
 }
 </script>
 
 <template>
-  <template v-if="isSeer && store.room?.nightCycle === NightCycle.SEER">
-    <div class="full-width" v-if="revealed">
-      {{ revealed?.name }} is
-      {{ roleName(store.room?.givenRoles?.[revealed?.userId ?? ''] ?? 'UNKNOWN') }}
-      <button class="btn" @click="seerStep()">continue</button>
+  <div v-if="isCupid && store.room?.nightCycle === NightCycle.CUPID" class="col">
+    <div class="full-width">
+      You're cupid. Select two people to be this game's couple.
+      {{ firstLover ? 'Second' : 'First' }} lover:
     </div>
-    <div class="full-width" v-else>
+    <div class="full-width">
       <div v-for="member in aliveMembers" :key="member.userId" class="row">
-        {{ member.name }}
-        <button
-          class="btn"
-          @click="selectedUser = member.userId"
-          v-if="selectedUser !== member.userId"
-        >
-          select
-        </button>
+        <template v-if="member.userId !== firstLover">
+          {{ member.name }}
+          <button
+            class="btn"
+            @click="selectedUser = member.userId"
+            v-if="selectedUser !== member.userId"
+          >
+            select
+          </button>
+        </template>
       </div>
-      <button class="btn" :class="selectedUser ? '' : 'danger'" @click="seerStep()">
-        reveal {{ store.users[selectedUser ?? '']?.name ?? '&lt; select &gt;' }}
+      <button class="btn" :class="selectedUser ? '' : 'danger'" @click="step()">
+        confirm {{ store.users[selectedUser ?? '']?.name ?? '&lt; select &gt;' }}
       </button>
     </div>
-  </template>
+  </div>
 </template>

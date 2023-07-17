@@ -1,9 +1,12 @@
 import { Role } from '../models/role'
 import { CYCLE_COUNT, NightCycle, Room } from '../models/room'
-import { User } from '../models/user'
-import { updateRoom } from './updateRoom'
+import { ensureLoverKilled, updateRoom } from './updateRoom'
 
-export async function advanceCycle(room: Room, user: User) {
+export async function advanceCycle(room: Room) {
+  ensureLoverKilled(room)
+  if (room.nightCycle === NightCycle.LOVERS) {
+    room.loversShown = true
+  }
   if (room.nightCycle === NightCycle.DAY) {
     room.diedTonight.forEach((userId) => {
       if (!room.dead.includes(userId)) room.dead.push(userId)
@@ -17,18 +20,7 @@ export async function advanceCycle(room: Room, user: User) {
   if (room.nightCycle === NightCycle.SEER && !hasSeer(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.WITCH && !hasWitch(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.HUNTER && !hunterDied(room)) room.nightCycle += 1
-  if (room.nightCycle === CYCLE_COUNT) {
-    room.nightCycle = NightCycle.DAY
-
-    room.diedTonight.forEach((userId) => {
-      /// Lover killed during the night. Can reveal now that night is over
-      if (room.lovers.includes(userId)) {
-        room.lovers.forEach((loverId) => {
-          if (!room.diedTonight.includes(loverId)) room.diedTonight.push(loverId)
-        })
-      }
-    })
-  }
+  if (room.nightCycle === CYCLE_COUNT) room.nightCycle = NightCycle.DAY
 
   await updateRoom(room)
 }
@@ -76,6 +68,6 @@ export function hunterDied(room: Room): boolean {
   return false
 }
 export function shouldShowLovers(room: Room): boolean {
-  if (hasCupid(room) && !room.loversShown) return true
+  if (room.lovers.length && !room.loversShown) return true
   return false
 }

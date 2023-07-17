@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { isDead, isLover, myRole, store } from '@/service/store'
+import { isDead, store } from '@/service/store'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '@/service/api'
 import { loadUser } from '@/service/loadUser'
-import { Role, stringToRole } from '@/models/role'
 import { fetchMembers } from '@/service/fetchMembers'
-import { NightCycle, numberToCycle } from '@/models/room'
+import { cycleChanged } from '@/service/cycleChanged'
 import RoleDisplay from './RoleDisplay.vue'
 import DeathDisplay from './DeathDisplay.vue'
 import EndDay from './EndDay.vue'
@@ -15,6 +14,8 @@ import SeerAction from './SeerAction.vue'
 import CupidAction from './CupidAction.vue'
 import HunterAction from './HunterAction.vue'
 import WitchAction from './WitchAction.vue'
+import LoverAction from './LoverAction.vue'
+import CycleDisplay from './CycleDisplay.vue'
 
 const router = useRouter()
 
@@ -55,32 +56,14 @@ async function timer() {
   setTimeout(() => {
     waitingForDelay.value = false
     store.room = newRoom
-    newCycle().catch(console.error)
+    cycleChanged().catch(console.error)
   }, 3000)
-}
-
-function vibrate() {
-  navigator.vibrate([100, 30, 100, 30, 100])
-}
-
-async function newCycle() {
-  if (store.room?.nightCycle === NightCycle.DAY) vibrate()
-  const role = stringToRole(myRole.value)
-  const cycleNum = store.room?.nightCycle ?? 0
-  const cycle = numberToCycle(cycleNum)
-
-  if (role === Role.THIEF && cycle === NightCycle.THIEF) vibrate()
-  if (role === Role.CUPID && cycle === NightCycle.CUPID) vibrate()
-  if (role === Role.WEREWOLF && cycle === NightCycle.WEREWOLF) vibrate()
-  if (role === Role.SEER && cycle === NightCycle.SEER) vibrate()
-  if (role === Role.HUNTER && cycle === NightCycle.HUNTER) vibrate()
-  if (role === Role.WITCH && cycle === NightCycle.WITCH) vibrate()
-  if (isLover && cycle === NightCycle.LOVERS) vibrate()
 }
 </script>
 
 <template>
   <div class="col">
+    <cycle-display :waitingForDelay="waitingForDelay" />
     <role-display />
     <death-display v-if="!waitingForDelay" />
 
@@ -91,6 +74,7 @@ async function newCycle() {
       <hunter-action />
       <cupid-action />
       <witch-action />
+      <lover-action />
     </div>
   </div>
 </template>

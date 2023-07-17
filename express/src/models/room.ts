@@ -12,6 +12,7 @@ export interface Room {
   skipOneWerewolfNight: boolean
   roleCount: Record<string, number>
   witchPotions: number[]
+  winner: 'LOVERS' | 'VILLAGERS' | 'WEREWOLVES' | 'JESTER' | null
 }
 
 export function newRoom(roomId: string): Room {
@@ -28,7 +29,8 @@ export function newRoom(roomId: string): Room {
     loversShown: false,
     skipOneWerewolfNight: false,
     roleCount: {},
-    witchPotions: [1, 1]
+    witchPotions: [1, 1],
+    winner: null
   }
 }
 
@@ -43,7 +45,11 @@ export enum NightCycle {
   HUNTER
 }
 
-export const CYCLE_COUNT = Object.values(NightCycle).filter((val) => typeof val === 'string').length
+export const allCycles: number[] = Object.values(NightCycle)
+  .filter((val) => typeof val === 'number')
+  .map((val) => +val)
+
+export const CYCLE_COUNT = allCycles.length
 
 export function cycleNumber(cycle: NightCycle): number {
   return +cycle
