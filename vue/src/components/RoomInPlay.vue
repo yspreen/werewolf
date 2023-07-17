@@ -12,6 +12,9 @@ import DeathDisplay from './DeathDisplay.vue'
 import EndDay from './EndDay.vue'
 import WerewolfAction from './WerewolfAction.vue'
 import SeerAction from './SeerAction.vue'
+import CupidAction from './CupidAction.vue'
+import HunterAction from './HunterAction.vue'
+import WitchAction from './WitchAction.vue'
 
 const router = useRouter()
 
@@ -83,10 +86,11 @@ async function newCycle() {
 
     <div class="row mt-1" v-if="!waitingForDelay">
       <end-day />
-      <template v-if="!isDead">
-        <werewolf-action />
-      </template>
+      <werewolf-action v-if="!isDead" />
       <seer-action />
+      <hunter-action />
+      <cupid-action />
+      <witch-action />
     </div>
   </div>
 </template>
