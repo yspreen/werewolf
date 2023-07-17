@@ -10,10 +10,11 @@ import { getRoomEndpoint } from './endpoints/getRoom'
 import { getUserEndpoint } from './endpoints/getUser'
 import { startGame } from './endpoints/startGame'
 import { advanceCycleEndpoint } from './endpoints/advanceCycle'
-import { killEndpoint } from './endpoints/kill'
+import { werewolfEndpoint } from './endpoints/werewolf'
 import { join } from './endpoints/join'
 import { updateRoomEndpoint } from './endpoints/updateRoom'
 import { witchEndpoint } from './endpoints/witchAction'
+import { hunterEndpoint } from './endpoints/hunter'
 const app = express()
 const port = 3000
 
@@ -44,10 +45,11 @@ async function main() {
   app.get('/user/:userId', getUserEndpoint)
   app.post('/start-game', startGame)
   app.post('/advance-cycle', advanceCycleEndpoint)
-  app.post('/kill', killEndpoint)
+  app.post('/werewolf', werewolfEndpoint)
   app.post('/join', join)
   app.post('/update-room', updateRoomEndpoint)
   app.post('/witch-action', witchEndpoint)
+  app.post('/hunter', hunterEndpoint)
 
   await init()
 

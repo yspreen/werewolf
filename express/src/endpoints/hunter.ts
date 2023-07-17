@@ -5,7 +5,7 @@ import { getRoom } from '../service/getRoom'
 import { Role } from '../models/role'
 import { advanceCycle } from '../service/advanceCycle'
 
-export async function killEndpoint(req: Request, res: Response) {
+export async function hunterEndpoint(req: Request, res: Response) {
   const user = await getUser(req, res)
 
   const ids = await getCleanRoomIds()
@@ -21,12 +21,11 @@ export async function killEndpoint(req: Request, res: Response) {
   if (!room.memberIds.includes(user.userId)) {
     return res.json({ error: 'not member' })
   }
-  if (room.givenRoles?.[user.userId] !== Role[Role.WEREWOLF]) {
-    return res.json({ error: 'not werewolf' })
+  if (room.givenRoles?.[user.userId] !== Role[Role.HUNTER]) {
+    return res.json({ error: 'not hunter' })
   }
 
-  if (!room.skipOneWerewolfNight) room.diedTonight.push(userId)
-  room.skipOneWerewolfNight = room.givenRoles[userId] === Role[Role.DISEASED]
+  room.diedTonight.push(userId)
 
   await advanceCycle(room, user)
 

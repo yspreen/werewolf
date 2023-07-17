@@ -12,7 +12,7 @@ const isWerewolf = computed(() => myRole.value === Role[Role.WEREWOLF])
 async function killUser(userId: string | null) {
   selectedUser.value = null
   if (!userId) return
-  await api.post('/kill', { userId, roomId: store.room?.roomId })
+  await api.post('/werewolf', { userId, roomId: store.room?.roomId })
 }
 </script>
 
