@@ -1,3 +1,5 @@
+import { allRoles } from './role'
+
 export type WINNER = 'LOVERS' | 'VILLAGERS' | 'WEREWOLVES' | 'JESTER'
 
 export interface Room {
@@ -17,6 +19,11 @@ export interface Room {
   winner: WINNER | null
 }
 
+const emptyRoles: Record<string, number> = {}
+allRoles.forEach((role) => {
+  emptyRoles[role] = 0
+})
+
 export function newRoom(roomId: string): Room {
   return {
     roomId,
@@ -30,7 +37,7 @@ export function newRoom(roomId: string): Room {
     nightCycle: 0,
     loversShown: false,
     skipOneWerewolfNight: false,
-    roleCount: {},
+    roleCount: emptyRoles,
     witchPotions: [1, 1],
     winner: null
   }
