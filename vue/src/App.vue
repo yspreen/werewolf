@@ -78,7 +78,7 @@ div {
   flex-direction: row;
   justify-content: space-between;
 }
-button.btn {
+.btn {
   color: unset;
   background-color: white;
   border: 1px solid black;
@@ -88,12 +88,15 @@ button.btn {
   cursor: pointer;
   &.danger {
     background-color: #c9c9c9;
-    opacity: 0.5;
   }
   body.night & {
     background-color: #ffffff40;
     border-color: #fff9ed;
   }
+}
+.semi-transparent,
+.btn.danger {
+  opacity: 0.4;
 }
 .pt-1 {
   padding-top: 1em;

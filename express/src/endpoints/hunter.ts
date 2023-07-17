@@ -27,7 +27,7 @@ export async function hunterEndpoint(req: Request, res: Response) {
 
   room.diedTonight.push(userId)
 
-  await advanceCycle(room, user)
+  await advanceCycle(room)
 
   res.json({ room })
 }

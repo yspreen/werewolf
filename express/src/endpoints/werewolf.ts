@@ -28,7 +28,7 @@ export async function werewolfEndpoint(req: Request, res: Response) {
   if (!room.skipOneWerewolfNight) room.diedTonight.push(userId)
   room.skipOneWerewolfNight = room.givenRoles[userId] === Role[Role.DISEASED]
 
-  await advanceCycle(room, user)
+  await advanceCycle(room)
 
   res.json({ room })
 }

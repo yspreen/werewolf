@@ -13,8 +13,9 @@ import { advanceCycleEndpoint } from './endpoints/advanceCycle'
 import { werewolfEndpoint } from './endpoints/werewolf'
 import { join } from './endpoints/join'
 import { updateRoomEndpoint } from './endpoints/updateRoom'
-import { witchEndpoint } from './endpoints/witchAction'
+import { witchEndpoint } from './endpoints/witch'
 import { hunterEndpoint } from './endpoints/hunter'
+import { cupidEndpoint } from './endpoints/cupid'
 const app = express()
 const port = 3000
 
@@ -50,6 +51,7 @@ async function main() {
   app.post('/update-room', updateRoomEndpoint)
   app.post('/witch-action', witchEndpoint)
   app.post('/hunter', hunterEndpoint)
+  app.post('/cupid', cupidEndpoint)
 
   await init()
 
