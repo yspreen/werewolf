@@ -7,7 +7,7 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100svh;
   color: black;
   background: #fff9ed;
   transition: color 0.5s, background-color 0.5s;

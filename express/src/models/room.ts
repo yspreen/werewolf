@@ -2,6 +2,7 @@ export interface Room {
   roomId: string
   name: string
   memberIds: string[]
+  lovers: string[]
   dead: string[]
   admins: string[]
   givenRoles: Record<string, string> | null
@@ -17,6 +18,7 @@ export function newRoom(roomId: string): Room {
     roomId,
     name: '',
     memberIds: [],
+    lovers: [],
     dead: [],
     admins: [],
     givenRoles: null,
@@ -28,16 +30,23 @@ export function newRoom(roomId: string): Room {
   }
 }
 
-/**
+export enum NightCycle {
+  DAY,
+  THIEF,
+  CUPID,
+  LOVERS,
+  WEREWOLF,
+  SEER,
+  WITCH,
+  HUNTER
+}
 
-Cycles:
+export function cycleNumber(cycle: NightCycle): number {
+  return +cycle
+}
 
-0: day
-1: thief
-2: cupid
-3: lovers
-4: werewolf
-5: seer
-6: witch
-
-**/
+export function numberToCycle(key: number): NightCycle {
+  if (Object.values(NightCycle).filter((val) => typeof val === 'string').length > key)
+    return key as NightCycle
+  return NightCycle.DAY
+}
