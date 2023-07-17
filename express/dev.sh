@@ -1,3 +1,4 @@
+#!/bin/sh
 
 ensuredocker() {
     docker ps >/dev/null 2>&1 || open -a Docker >/dev/null 2>&1

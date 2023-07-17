@@ -19,6 +19,7 @@
     "prettier": "^2.8.8"
   },
   "scripts": {
-    "dev": "./dev.sh"
+    "dev": "./dev.sh",
+    "build": "./build.sh"
   }
 }
