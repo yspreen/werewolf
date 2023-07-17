@@ -16,6 +16,7 @@ export async function advanceCycle(room: Room, user: User) {
   if (room.nightCycle === NightCycle.LOVERS && !shouldShowLovers(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.SEER && !hasSeer(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.WITCH && !hasWitch(room)) room.nightCycle += 1
+  if (room.nightCycle === NightCycle.HUNTER && !hunterDied(room)) room.nightCycle += 1
   if (room.nightCycle === CYCLE_COUNT) {
     room.nightCycle = NightCycle.DAY
 
@@ -65,6 +66,12 @@ export function hasWitch(room: Room): boolean {
     if (room.dead.includes(userId)) continue
     const role = roles[userId]
     if (role == Role[Role.WITCH]) return true
+  }
+  return false
+}
+export function hunterDied(room: Room): boolean {
+  for (const died of room.diedTonight) {
+    if (room.givenRoles?.[died] == Role[Role.HUNTER]) return true
   }
   return false
 }
