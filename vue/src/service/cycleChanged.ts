@@ -18,5 +18,6 @@ export async function cycleChanged() {
 }
 
 export function vibrate() {
-  navigator.vibrate([100, 30, 100, 30, 100])
+  console.log('vibrate')
+  window.navigator.vibrate([100, 30, 100, 30, 100])
 }

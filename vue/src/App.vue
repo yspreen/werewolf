@@ -43,17 +43,15 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+body {
+  display: flex;
+  place-items: center;
+}
 
-  #app {
-    display: flex;
-    width: 100%;
-    padding: 0 2rem;
-  }
+#app {
+  display: flex;
+  width: 100%;
+  padding: 0 2rem;
 }
 
 body,
@@ -79,6 +77,7 @@ div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .btn,
 input {
