@@ -6,12 +6,14 @@ export const store = reactive({
   user: null,
   room: null,
   users: {},
-  nightMode: false
+  nightMode: false,
+  enableSound: false
 }) as {
   user: User | null
   room: Room | null
   users: Record<string, User>
   nightMode: boolean
+  enableSound: boolean
 }
 
 export const isDead = computed(() => store.room?.dead.includes(store.user?.userId ?? '') ?? false)

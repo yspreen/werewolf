@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { advanceCycle } from '@/service/advanceCycle'
+import { warmUpAudio } from '@/service/cycleChanged'
 import { futureAliveMembers, isDead, store } from '@/service/store'
 import { ref } from 'vue'
+import ToggleSwitch from './ToggleSwitch.vue'
 
 const voteResultSelection = ref(false)
 const selectedUser = ref(null as string | null)
@@ -11,6 +13,7 @@ function startVoteResult() {
 }
 
 async function start() {
+  warmUpAudio()
   voteResultSelection.value = false
   if (selectedUser.value) await advanceCycle(selectedUser.value)
   else await advanceCycle()
@@ -36,11 +39,22 @@ async function start() {
       <span v-else>nobody voted</span>
     </button>
   </div>
-  <button
-    class="btn"
-    @click="startVoteResult()"
-    v-if="!isDead && store.room?.nightCycle === 0 && !voteResultSelection"
-  >
-    start night
-  </button>
+  <div class="row" v-if="!isDead && store.room?.nightCycle === 0 && !voteResultSelection">
+    <button class="btn" @click="startVoteResult()">start night</button>
+    <span class="switch-container" @click="warmUpAudio">
+      Narrate 🔊
+      <toggle-switch
+        class="ml-05"
+        @changed="(v) => (store.enableSound = v)"
+        :initial-value="store.enableSound"
+      />
+    </span>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+</style>

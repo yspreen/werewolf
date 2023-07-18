@@ -17,6 +17,7 @@ import WitchAction from './WitchAction.vue'
 import LoverAction from './LoverAction.vue'
 import CycleDisplay from './CycleDisplay.vue'
 import ShowWinner from './ShowWinner.vue'
+import { NightCycle, type Room } from '@/models/room'
 
 const router = useRouter()
 
@@ -39,7 +40,7 @@ onUnmounted(() => {
 const waitingForDelay = ref(false)
 async function timer() {
   if (waitingForDelay.value) return
-  const newRoom = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
+  const newRoom: Room = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
   if (!newRoom) {
     return
   }

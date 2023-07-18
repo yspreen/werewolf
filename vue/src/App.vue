@@ -118,6 +118,42 @@ input {
 .mb-1 {
   margin-bottom: 1em;
 }
+.pt-05 {
+  padding-top: 0.5em;
+}
+.mt-05 {
+  margin-top: 0.5em;
+}
+.pb-05 {
+  padding-bottom: 0.5em;
+}
+.mb-05 {
+  margin-bottom: 0.5em;
+}
+.pl-1 {
+  padding-left: 1em;
+}
+.ml-1 {
+  margin-left: 1em;
+}
+.pr-1 {
+  padding-right: 1em;
+}
+.mr-1 {
+  margin-right: 1em;
+}
+.pl-05 {
+  padding-left: 0.5em;
+}
+.ml-05 {
+  margin-left: 0.5em;
+}
+.pr-05 {
+  padding-right: 0.5em;
+}
+.mr-05 {
+  margin-right: 0.5em;
+}
 .sm {
   font-size: 0.8em;
 }
