@@ -20,7 +20,7 @@ import ShowWinner from './ShowWinner.vue'
 
 const router = useRouter()
 
-let interval = null as number | null
+let interval = null as NodeJS.Timer | null
 
 onMounted(async () => {
   await loadUser()

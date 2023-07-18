@@ -34,7 +34,7 @@ const members = computed(() => {
   return memberIds.map((memberId) => store.users[memberId]).filter((user) => user)
 })
 
-let interval = null as number | null
+let interval = null as NodeJS.Timer | null
 
 onMounted(async () => {
   await loadUser()

@@ -10,8 +10,8 @@ export const api = {
   async get(path: string): Promise<any> {
     const res = await axios.get(`${host}${path}`, { headers: { 'x-session': this.session } })
     const data = res.data
-    console.log('head', res.headers)
-    setCookie('session', res.headers['x-session'])
+    const newSession = res.headers['x-session']
+    newSession && setCookie('session', newSession)
     return data
   },
   async post(path: string, payload: any = {}): Promise<any> {
@@ -19,8 +19,8 @@ export const api = {
       headers: { 'x-session': this.session }
     })
     const data = res.data
-    console.log('head', res.headers)
-    setCookie('session', res.headers['x-session'])
+    const newSession = res.headers['x-session']
+    newSession && setCookie('session', newSession)
     return data
   },
   get session(): string {
