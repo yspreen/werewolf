@@ -13,7 +13,6 @@ function startVoteResult() {
 }
 
 async function start() {
-  warmUpAudio()
   voteResultSelection.value = false
   if (selectedUser.value) await advanceCycle(selectedUser.value)
   else await advanceCycle()
