@@ -24,9 +24,9 @@ async function changeCount(role: string, diff: number) {
       roleName(role)
     }}</span>
     <span
-      ><button @click="changeCount(role, -1)" v-if="isAdmin">-</button>
+      ><button @click.prevent="changeCount(role, -1)" v-if="isAdmin">-</button>
       {{ store.room?.roleCount[role] }}
-      <button @click="changeCount(role, 1)" v-if="isAdmin">+</button></span
+      <button @click.prevent="changeCount(role, 1)" v-if="isAdmin">+</button></span
     >
   </div>
 </template>
