@@ -1,11 +1,14 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "bundle"],
   "files": ["./src/module.d.ts"],
   "compilerOptions": {
     "composite": true,
     "module": "CommonJS",
     "types": ["node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "ES2018",
+    "lib": ["es2018"]
   }
 }

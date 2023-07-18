@@ -18,11 +18,10 @@
     "nodemon": "^3.0.1",
     "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
-    "tsc": "^2.0.4",
     "typescript": "^5.1.6"
   },
   "scripts": {
-    "tsc": "npx tsc",
+    "compile": "rm tsconfig.tsbuildinfo; ./node_modules/.bin/tsc -p .",
     "dev": "./dev.sh",
     "build": "./build.sh"
   }
