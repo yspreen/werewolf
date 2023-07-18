@@ -58,7 +58,7 @@ async function timer() {
     playAudio(AudioFile.win)
     noSleep.disable()
   }
-  if (!store.room || store.room?.nightCycle === newRoom.nightCycle) {
+  if (!store.room || store.room?.nightCycle === newRoom.nightCycle || newRoom.winner) {
     store.room = newRoom
     return
   }
