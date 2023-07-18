@@ -41,7 +41,7 @@ async function start() {
   <div class="row" v-if="!isDead && store.room?.nightCycle === 0 && !voteResultSelection">
     <button class="btn" @click="startVoteResult()">start night</button>
     <span class="switch-container" @click="warmUpAudio">
-      Narrate 🔊
+      <span class="sm">Narrate</span> 🔊
       <toggle-switch
         class="ml-05"
         @changed="(v) => (store.enableSound = v)"
