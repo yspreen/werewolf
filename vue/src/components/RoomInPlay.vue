@@ -17,24 +17,27 @@ import WitchAction from './WitchAction.vue'
 import LoverAction from './LoverAction.vue'
 import CycleDisplay from './CycleDisplay.vue'
 import ShowWinner from './ShowWinner.vue'
-import { NightCycle, type Room } from '@/models/room'
+import { type Room } from '@/models/room'
 
 const router = useRouter()
 
 let interval = null as NodeJS.Timer | null
+let screenLock: WakeLockSentinel | null
 
 onMounted(async () => {
   await loadUser()
   await timer()
   interval = setInterval(() => timer().then(() => {}), 1000)
+  if (navigator.wakeLock) screenLock = await navigator.wakeLock.request('screen')
 })
 
-onUnmounted(() => {
+onUnmounted(async () => {
   if (interval === null) return
 
   store.nightMode = false
   clearInterval(interval)
   interval = null
+  if (screenLock) await screenLock.release()
 })
 
 const waitingForDelay = ref(false)
