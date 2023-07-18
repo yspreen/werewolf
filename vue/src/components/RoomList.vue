@@ -9,7 +9,7 @@ import { loadUser } from '@/service/loadUser'
 const router = useRouter()
 const rooms = ref([] as Room[])
 
-let interval = null as number | null
+let interval = null as NodeJS.Timer | null
 
 onMounted(async () => {
   await loadUser()

@@ -56,7 +56,9 @@ a,
   }
 }
 
-body {
+body,
+input,
+textarea {
   font-family: 'Inter';
   font-size: 18pt;
 }
@@ -78,7 +80,8 @@ div {
   flex-direction: row;
   justify-content: space-between;
 }
-.btn {
+.btn,
+input {
   color: unset;
   background-color: white;
   border: 1px solid black;
@@ -93,6 +96,12 @@ div {
     background-color: #ffffff40;
     border-color: #fff9ed;
   }
+}
+input {
+  border-width: 2px;
+}
+*:focus {
+  outline: none;
 }
 .semi-transparent,
 .btn.danger {

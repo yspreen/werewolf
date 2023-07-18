@@ -6,7 +6,10 @@ import { useRouter } from 'vue-router'
 const name = ref('')
 const router = useRouter()
 
+let didSubmitName = ''
 async function submit() {
+  if (didSubmitName === name.value) return
+  didSubmitName = name.value
   await api.post('/name', {
     name: name.value
   })
@@ -16,17 +19,16 @@ async function submit() {
 
 <template>
   <div class="col">
-    <form @submit.prevent="submit">
+    <form @submit.prevent.stop="submit">
       <div class="row">
         <input
           v-model="name"
-          @submit.prevent="submit"
           type="text"
           name="given-name"
           id="given-name"
           placeholder="Harry Styles"
         />
-        <button @click="submit">ok</button>
+        <button class="btn" @click="submit">ok</button>
       </div>
       <span class="sm"
         >using your real name helps the other people in the room identify who joined :)</span
@@ -35,4 +37,9 @@ async function submit() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+input {
+  flex-grow: 1;
+  margin-right: 0.5em;
+}
+</style>
