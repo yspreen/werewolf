@@ -1,2 +1,5 @@
 express.zip
 .terraform/
+.doppler.auto.tfvars
+terraform.tfstate
+terraform.tfstate.backup
