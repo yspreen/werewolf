@@ -6,17 +6,13 @@ import { updateUser } from './updateUser'
 import { User, newUser } from '../models/user'
 
 export async function getUserId(req: Request, res: Response): Promise<string> {
-  let sessionId = req.cookies.sessionId || ''
+  let sessionId = req.headersDistinct['x-session']?.[0] ?? ''
   let userId = await redis.get(`session:${sessionId}`)
 
   if (!userId) {
     sessionId = uuid()
     userId = uuid()
-    res.cookie('sessionId', sessionId, {
-      maxAge: USER_TTL_SECONDS * 1000,
-      sameSite: 'none',
-      secure: true
-    })
+    res.header('x-session', sessionId)
     await redis.set(`session:${sessionId}`, userId, { EX: USER_TTL_SECONDS })
     await updateUser(newUser(userId))
   }
