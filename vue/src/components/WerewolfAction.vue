@@ -11,7 +11,8 @@ const isWerewolf = computed(() => myRole.value === Role[Role.WEREWOLF])
 
 async function killUser(userId: string | null) {
   selectedUser.value = null
-  if (!userId) return
+  if (!userId || !store.room) return
+  store.room.nightCycle += 1
   await api.post('/werewolf', { userId, roomId: store.room?.roomId })
 }
 </script>
@@ -23,7 +24,7 @@ async function killUser(userId: string | null) {
       werewolfs before committing!
     </div>
     <div v-for="member in aliveMembers" :key="member.userId" class="row">
-      {{ member.name }}
+      {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
       <button
         class="btn"
         @click="selectedUser = member.userId"

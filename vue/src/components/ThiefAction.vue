@@ -22,7 +22,8 @@ const isThief = computed(() => {
 const selected = ref(null as number | null)
 
 async function choose(role: number | null) {
-  if (!role) return
+  if (role === null || !store.room) return
+  store.room.nightCycle += 1
   await api.post('/thief', { roomId: store.room?.roomId, role: choices.value[role] })
 }
 </script>

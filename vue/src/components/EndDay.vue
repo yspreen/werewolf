@@ -14,6 +14,8 @@ function startVoteResult() {
 
 async function start() {
   voteResultSelection.value = false
+  if (!store.room) return
+  store.room.nightCycle += 1
   if (selectedUser.value) await advanceCycle(selectedUser.value)
   else await advanceCycle()
 }
@@ -23,7 +25,7 @@ async function start() {
   <div class="full-width" v-if="voteResultSelection">
     <div>who got voted out?</div>
     <div v-for="member in futureAliveMembers" :key="member.userId" class="row">
-      {{ member.name }}
+      {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
       <button
         class="btn"
         @click="selectedUser = member.userId"
