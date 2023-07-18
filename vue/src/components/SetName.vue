@@ -39,7 +39,7 @@ async function submit() {
 
 <style scoped>
 input {
-  flex-grow: 1;
+  width: 100%;
   margin-right: 0.5em;
 }
 </style>

@@ -84,12 +84,11 @@ async function kick(userId: string) {
 
 <template>
   <div class="col">
-    <div>your name: {{ store.user?.name }}</div>
     <div class="row">{{ store.room?.name }}</div>
     <lobby-roles />
-    <div class="row">{{ members.length }} members:</div>
+    <div class="row sm pt-1">{{ members.length }} members:</div>
     <div class="row" v-for="member in members" :key="member.userId">
-      {{ member.name }}
+      {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
       <button class="btn" v-if="isAdmin" @click="kick(member.userId)">kick</button>
     </div>
     <div class="row" v-if="isAdmin">

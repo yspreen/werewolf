@@ -17,7 +17,7 @@ async function changeCount(role: string, diff: number) {
 </script>
 
 <template>
-  <div class="row">roles:</div>
+  <div class="row sm pt-1">roles:</div>
   <div class="row" v-for="role in allRoles" :key="role">
     <span :class="store.room?.roleCount[role] === 0 ? 'semi-transparent' : ''">{{
       roleName(role)

@@ -12,7 +12,7 @@ const myRole = computed(() => {
 const myRoleName = computed(() => roleName(myRole.value))
 const roleLabel = computed(() => (reveal.value ? myRoleName.value : '< reveal below >'))
 
-let revealTimer = null as number | null
+let revealTimer = null as NodeJS.Timeout | null
 function toggleReveal() {
   revealTimer && clearTimeout(revealTimer)
   reveal.value = !reveal.value
