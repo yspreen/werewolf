@@ -20,7 +20,7 @@ async function killUser(userId: string | null) {
   <div class="full-width" v-if="isHunter && store.room?.nightCycle === +NightCycle.HUNTER">
     <div>You got killed. As the hunter you choose one person to take with you:</div>
     <div v-for="member in futureAliveMembers" :key="member.userId" class="row">
-      {{ member.name }}
+      {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
       <button
         class="btn"
         @click="selectedUser = member.userId"

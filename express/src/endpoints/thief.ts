@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { getUser } from '../service/getUser'
 import { getRoom } from '../service/getRoom'
-import { updateRoom } from '../service/updateRoom'
+import { advanceCycle } from '../service/advanceCycle'
 
 export async function thiefEndpoint(req: Request, res: Response) {
   const user = await getUser(req, res)
@@ -18,7 +18,7 @@ export async function thiefEndpoint(req: Request, res: Response) {
   room.givenRoles[user.userId] = role
   room.thiefChoices = []
 
-  await updateRoom(room)
+  await advanceCycle(room)
 
   res.send({})
 }

@@ -41,7 +41,7 @@ async function step() {
     <div class="full-width">{{ stage == 0 ? 'heal' : 'kill' }} someone?</div>
     <div class="full-width">
       <div v-for="member in aliveMembers" :key="member.userId" class="row">
-        {{ member.name }}
+        {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
         <button
           class="btn"
           @click="selectedUser = member.userId"

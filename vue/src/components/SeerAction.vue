@@ -34,7 +34,7 @@ async function seerStep() {
     </div>
     <div class="full-width" v-else>
       <div v-for="member in aliveMembers" :key="member.userId" class="row">
-        {{ member.name }}
+        {{ member.userId === store.user?.userId ? '(me)' : '' }}
         <button
           class="btn"
           @click="selectedUser = member.userId"
