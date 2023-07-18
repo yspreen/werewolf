@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { allRoles, roleName } from '@/models/role'
+import { Role, allRoles, roleName } from '@/models/role'
 import { api } from '@/service/api'
 import { store } from '@/service/store'
 import { computed } from 'vue'
@@ -12,6 +12,7 @@ async function changeCount(role: string, diff: number) {
   if (!store.room) return
   if (store.room.roleCount[role] + diff < 0) return
   store.room.roleCount[role] += diff
+  store.room.roleCount[Role[Role.THIEF]] = Math.min(1, store.room.roleCount[Role[Role.THIEF]])
   await api.post('/update-room', { room: store.room })
 }
 </script>

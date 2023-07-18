@@ -1,4 +1,3 @@
-import { KeyObject } from 'crypto'
 import { Role } from '../models/role'
 import { CYCLE_COUNT, NightCycle, Room } from '../models/room'
 import { checkWinner, ensureLoverKilled, updateRoom } from './updateRoom'
