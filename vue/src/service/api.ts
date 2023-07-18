@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const host = `http://localhost:3000`
+const host = `https://66dcilqsil.execute-api.us-east-1.amazonaws.com/prod`
 
 export const api = {
   async get(path: string): Promise<any> {
