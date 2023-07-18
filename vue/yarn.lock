@@ -308,6 +308,11 @@
     "@typescript-eslint/types" "5.62.0"
     eslint-visitor-keys "^3.3.0"
 
+"@uriopass/nosleep.js@^0.12.2":
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/@uriopass/nosleep.js/-/nosleep.js-0.12.2.tgz#11d0f35034543c29b878e3e343e1d5a7058046c0"
+  integrity sha512-aMrhyZ/pO1L0EGxI3EaQhijKDi2LZd++FtrHQItP5+lVSRD3EpwaXlDoBvCBCO9+U1E6gOxo400OC79yRHzR/A==
+
 "@vitejs/plugin-vue@^4.2.3":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-4.2.3.tgz#ee0b6dfcc62fe65364e6395bf38fa2ba10bb44b6"

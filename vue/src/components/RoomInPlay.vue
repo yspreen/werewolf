@@ -18,17 +18,18 @@ import LoverAction from './LoverAction.vue'
 import CycleDisplay from './CycleDisplay.vue'
 import ShowWinner from './ShowWinner.vue'
 import { type Room } from '@/models/room'
+import NoSleep from '@uriopass/nosleep.js'
 
 const router = useRouter()
 
 let interval = null as NodeJS.Timer | null
-let screenLock: WakeLockSentinel | null
+const noSleep = new NoSleep()
 
 onMounted(async () => {
   await loadUser()
   await timer()
   interval = setInterval(() => timer().then(() => {}), 1000)
-  if (navigator.wakeLock) screenLock = await navigator.wakeLock.request('screen')
+  await noSleep.enable()
 })
 
 onUnmounted(async () => {
@@ -37,7 +38,7 @@ onUnmounted(async () => {
   store.nightMode = false
   clearInterval(interval)
   interval = null
-  if (screenLock) await screenLock.release()
+  await noSleep.disable()
 })
 
 const waitingForDelay = ref(false)
