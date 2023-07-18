@@ -1,7 +1,7 @@
 import { NightCycle, numberToCycle } from '@/models/room'
 import { store } from './store'
 
-enum AudioFile {
+export enum AudioFile {
   cupid,
   day,
   hunter,
