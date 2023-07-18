@@ -5,7 +5,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 nvm use
 
-yarn tsc
+yarn compile
 yarn install --prod
 rm -rf bundle
 mkdir bundle
