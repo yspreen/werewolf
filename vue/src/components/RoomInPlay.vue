@@ -20,6 +20,7 @@ import ShowWinner from './ShowWinner.vue'
 import { type Room } from '@/models/room'
 import NoSleep from '@uriopass/nosleep.js'
 import { playAudio, AudioFile } from '@/service/cycleChanged'
+import ThiefAction from './ThiefAction.vue'
 
 const router = useRouter()
 
@@ -87,6 +88,7 @@ async function timer() {
       <cupid-action />
       <witch-action />
       <lover-action />
+      <thief-action />
     </div>
   </div>
 </template>
