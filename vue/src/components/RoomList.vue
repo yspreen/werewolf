@@ -26,7 +26,6 @@ onUnmounted(() => {
 
 async function timer() {
   const allRooms: Room[] = (await api.get('/rooms')).rooms
-  console.log({ allRooms })
   rooms.value = allRooms.filter((room) => room.givenRoles === null)
 }
 

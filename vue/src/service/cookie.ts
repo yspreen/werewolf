@@ -1,13 +1,10 @@
 export function setCookie(name: string, value: string, days: number = 365) {
-  console.log('set', name, value)
-  console.log('set', name, value)
   const d = new Date()
   d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000)
   const expires = `expires=${d.toUTCString()}`
   document.cookie = `${name}=${value};${expires};path=/`
 }
 export function getCookie(name: string): string {
-  console.log('get', name, document.cookie)
   name += '='
   const decodedCookie = decodeURIComponent(document.cookie)
   const ca = decodedCookie.split(';')
