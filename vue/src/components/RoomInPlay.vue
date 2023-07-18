@@ -47,9 +47,8 @@ const waitingForDelay = ref(false)
 async function timer() {
   if (waitingForDelay.value) return
   const newRoom: Room = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
-  if (!newRoom) {
-    return
-  }
+  if (!newRoom) return
+  if (store.room && store.room.v > newRoom.v) return
   if (!newRoom.memberIds.includes(store.user?.userId ?? '')) {
     return router.push('/')
   }

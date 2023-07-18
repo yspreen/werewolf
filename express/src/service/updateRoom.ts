@@ -44,5 +44,6 @@ export async function checkWinner(room: Room, includeDeathsFromTonight: boolean)
 export async function updateRoom(room: Room) {
   ensureLoverKilled(room)
   await checkWinner(room, false)
+  room.v += 1
   await redis.set(`room:${room.roomId}:info`, JSON.stringify(room))
 }

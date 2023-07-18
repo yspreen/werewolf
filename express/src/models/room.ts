@@ -3,6 +3,7 @@ import { allRoles } from './role'
 export type WINNER = 'LOVERS' | 'VILLAGERS' | 'WEREWOLVES' | 'JESTER'
 
 export interface Room {
+  v: number
   roomId: string
   name: string
   memberIds: string[]
@@ -27,6 +28,7 @@ allRoles.forEach((role) => {
 
 export function newRoom(roomId: string): Room {
   return {
+    v: 0,
     roomId,
     name: '',
     memberIds: [],
