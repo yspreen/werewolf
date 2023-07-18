@@ -67,14 +67,20 @@ resource "aws_lambda_function" "express_lambda" {
   handler       = "lambda.handler"
 
   runtime = "nodejs18.x"
+  timeout = 60
 
-  filename = data.archive_file.lambda_zip.output_path
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = base64sha256(filebase64(data.archive_file.lambda_zip.output_path))
 
   role = aws_iam_role.lambda_exec.arn
 
   environment {
     variables = {
-      PROD = "true"
+      PROD       = "true"
+      REDIS_USER = "admin"
+      REDIS_PW   = "***REMOVED***"
+      REDIS_HOST = "***REMOVED***"
+      REDIS_PORT = "15645"
     }
   }
 }
