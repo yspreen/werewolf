@@ -3,7 +3,6 @@ import { getRoomsEndpoint } from './endpoints/getRooms'
 import { init as redisInit } from './service/redis'
 import { newRoom } from './endpoints/newRoom'
 import { setName } from './endpoints/setName'
-import cookieParser from 'cookie-parser'
 import { whoAmI } from './endpoints/whoAmI'
 import bodyParser from 'body-parser'
 import { getRoomEndpoint } from './endpoints/getRoom'
@@ -20,16 +19,14 @@ export const app = express()
 
 export async function init() {
   app.use(bodyParser.json())
-  app.use(cookieParser())
   // CORS middleware
   app.use((req: Request, res: Response, next: () => void) => {
     res.header('Access-Control-Allow-Origin', req.header('origin'))
     res.header('Access-Control-Allow-Credentials', 'true')
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Cookie, Set-Cookie'
-    )
+    const headers = 'Origin, X-Requested-With, Content-Type, Accept, X-Session'
+    res.header('Access-Control-Allow-Headers', headers)
+    res.header('Access-Control-Expose-Headers', headers)
     next()
   })
 
