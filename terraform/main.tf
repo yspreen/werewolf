@@ -33,6 +33,14 @@ terraform {
   required_version = "~> 1.0"
 }
 
+variable "doppler_token" {
+  type = string
+}
+provider "doppler" {
+  doppler_token = var.doppler_token
+}
+data "doppler_secrets" "this" {}
+
 provider "aws" {
   region  = "us-east-1"
   profile = "hockey"
@@ -75,13 +83,9 @@ resource "aws_lambda_function" "express_lambda" {
   role = aws_iam_role.lambda_exec.arn
 
   environment {
-    variables = {
-      PROD       = "true"
-      REDIS_USER = "admin"
-      REDIS_PW   = "***REMOVED***"
-      REDIS_HOST = "***REMOVED***"
-      REDIS_PORT = "15645"
-    }
+    variables = merge({
+      PROD = "true"
+    }, data.doppler_secrets.this.map)
   }
 }
 
