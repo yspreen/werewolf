@@ -50,7 +50,10 @@ onUnmounted(() => {
 })
 
 async function timer() {
-  store.room = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
+  const newRoom = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
+  if (!newRoom) return
+  if (store.room && store.room.v > newRoom.v) return
+  store.room = newRoom
   if (!Object.keys(store.room?.roleCount ?? {}).length) {
     allRoles.forEach((role) => {
       store.room && (store.room.roleCount[role] = 0)

@@ -13,6 +13,7 @@ async function killUser(userId: string | null) {
   selectedUser.value = null
   if (!userId || !store.room) return
   store.room.nightCycle += 1
+  store.room.v += 1
   await api.post('/werewolf', { userId, roomId: store.room?.roomId })
 }
 </script>

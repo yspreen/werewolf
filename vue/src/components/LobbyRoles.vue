@@ -13,6 +13,7 @@ async function changeCount(role: string, diff: number) {
   if (store.room.roleCount[role] + diff < 0) return
   store.room.roleCount[role] += diff
   store.room.roleCount[Role[Role.THIEF]] = Math.min(1, store.room.roleCount[Role[Role.THIEF]])
+  store.room.v += 1
   await api.post('/update-room', { room: store.room })
 }
 </script>
