@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Role, roleName } from '@/models/role'
+import { Role } from '@/models/role'
 import { NightCycle } from '@/models/room'
 import type { User } from '@/models/user'
 import { advanceCycle } from '@/service/advanceCycle'
@@ -9,9 +9,12 @@ import { computed, ref } from 'vue'
 const selectedUser = ref(null as string | null)
 const revealed = ref(null as User | null)
 
-const isSeer = computed(() => {
-  return myRole.value === Role[Role.SEER]
-})
+const isSeer = computed(() => myRole.value === Role[Role.SEER])
+const revealedRole = computed(() =>
+  store.room?.givenRoles?.[revealed.value?.userId ?? ''] == Role[Role.WEREWOLF]
+    ? 'Werewolf'
+    : 'not a Werewolf'
+)
 
 async function seerStep() {
   if (!revealed.value && !selectedUser.value) return
@@ -29,12 +32,12 @@ async function seerStep() {
   <template v-if="isSeer && store.room?.nightCycle === NightCycle.SEER">
     <div class="full-width" v-if="revealed">
       {{ revealed?.name }} is
-      {{ roleName(store.room?.givenRoles?.[revealed?.userId ?? ''] ?? 'UNKNOWN') }}
+      {{ revealedRole }}
       <button class="btn" @click="seerStep()">continue</button>
     </div>
     <div class="full-width" v-else>
       <div v-for="member in aliveMembers" :key="member.userId" class="row">
-        {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
+        {{ member.name }} a {{ member.userId === store.user?.userId ? '(me)' : '' }}
         <button
           class="btn"
           @click="selectedUser = member.userId"

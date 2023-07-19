@@ -14,6 +14,7 @@ let interval = null as NodeJS.Timer | null
 onMounted(async () => {
   await loadUser()
   await timer()
+  store.room = null
   interval = setInterval(() => timer().then(() => {}), 1000)
 })
 
