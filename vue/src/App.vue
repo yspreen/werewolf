@@ -57,8 +57,7 @@ body {
 body,
 input,
 textarea {
-  font-family: 'Inter';
-  font-size: 18pt;
+  font-size: 22pt;
 }
 div {
   margin: 0;
@@ -84,8 +83,8 @@ input {
   color: unset;
   background-color: white;
   border: 1px solid black;
-  border-radius: 0.5em;
-  padding: 0.5em 0.75em;
+  border-radius: 0.4em;
+  padding: 0.4em 0.6em;
   font-size: 1em;
   cursor: pointer;
   &.danger {
