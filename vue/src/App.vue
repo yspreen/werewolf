@@ -57,7 +57,7 @@ body {
 body,
 input,
 textarea {
-  font-size: 22pt;
+  font-size: 20pt;
 }
 div {
   margin: 0;
