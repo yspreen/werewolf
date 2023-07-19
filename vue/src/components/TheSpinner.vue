@@ -4,8 +4,8 @@
 
 <style scoped>
 .spinner {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border: 16px solid #00000020;
+  border-top: 16px solid #000000;
   border-radius: 50%;
   width: 120px;
   height: 120px;

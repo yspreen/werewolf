@@ -17,9 +17,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <TheSpinner />
+  <div class="col">
+    <the-spinner />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.col {
+  align-items: center;
+}
+</style>
