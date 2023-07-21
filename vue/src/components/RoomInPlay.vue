@@ -80,7 +80,7 @@ async function timer() {
     <death-display v-if="!waitingForDelay" />
 
     <div class="row mt-1" v-if="!waitingForDelay">
-      <end-day />
+      <end-day v-if="!store.room?.hunterDayKill" />
       <werewolf-action v-if="!isDead" />
       <seer-action />
       <hunter-action />
