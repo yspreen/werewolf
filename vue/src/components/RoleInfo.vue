@@ -135,7 +135,7 @@ function close() {
 </script>
 
 <template>
-  <div class="modal-bg" v-if="store.showRoleInfo" @click="close">
+  <div class="modal-bg" v-if="store.showRoleInfo !== null" @click="close">
     <div class="modal" @click.stop="() => {}">
       <div class="header">{{ roleName(Role[store.showRoleInfo]) }}</div>
       <div class="content" v-html="description" />
