@@ -2,6 +2,7 @@
 import { watch } from 'vue'
 import { RouterView } from 'vue-router'
 import { store } from './service/store'
+import RoleInfo from './components/RoleInfo.vue'
 
 watch(store, (val) => {
   if (val.nightMode) {
@@ -13,7 +14,8 @@ watch(store, (val) => {
 </script>
 
 <template>
-  <RouterView />
+  <router-view />
+  <role-info />
 </template>
 
 <style lang="scss">
