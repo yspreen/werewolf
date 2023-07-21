@@ -1,5 +1,6 @@
 import { NightCycle, numberToCycle } from '@/models/room'
-import { store } from './store'
+import { myRole, store } from './store'
+import { Role } from '@/models/role'
 
 export enum AudioFile {
   cupid,
@@ -18,6 +19,7 @@ export const allAudio: string[] = Object.values(AudioFile)
   .map((val) => `${val}`)
 
 export async function cycleChanged() {
+  store.showIfIDiedJustNow = false
   if (store.room?.nightCycle === NightCycle.DAY) playAudio(AudioFile.day)
 
   const cycleNum = store.room?.nightCycle ?? 0
@@ -30,6 +32,8 @@ export async function cycleChanged() {
   if (cycle === NightCycle.HUNTER) playAudio(AudioFile.hunter)
   if (cycle === NightCycle.WITCH) playAudio(AudioFile.witch)
   if (cycle === NightCycle.LOVERS) playAudio(AudioFile.lovers)
+
+  if (cycle === NightCycle.HUNTER) store.showIfIDiedJustNow = myRole.value === Role[Role.HUNTER]
 }
 
 export function vibrate() {
