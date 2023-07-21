@@ -1,3 +1,4 @@
+import type { Role } from '@/models/role'
 import type { Room } from '@/models/room'
 import type { User } from '@/models/user'
 import { computed, reactive } from 'vue'
@@ -8,7 +9,8 @@ export const store = reactive({
   users: {},
   nightMode: false,
   enableSound: false,
-  showIfIDiedJustNow: false
+  showIfIDiedJustNow: false,
+  showRoleInfo: null
 }) as {
   user: User | null
   room: Room | null
@@ -16,6 +18,7 @@ export const store = reactive({
   nightMode: boolean
   enableSound: boolean
   showIfIDiedJustNow: boolean
+  showRoleInfo: Role | null
 }
 
 export const isDead = computed(() => store.room?.dead.includes(store.user?.userId ?? '') ?? false)
