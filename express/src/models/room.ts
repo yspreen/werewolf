@@ -19,6 +19,7 @@ export interface Room {
   witchPotions: number[]
   winner: WINNER | null
   thiefChoices: string[]
+  hunterDayKill: boolean
 }
 
 const emptyRoles: Record<string, number> = {}
@@ -43,7 +44,8 @@ export function newRoom(roomId: string): Room {
     roleCount: emptyRoles,
     witchPotions: [1, 1],
     winner: null,
-    thiefChoices: []
+    thiefChoices: [],
+    hunterDayKill: false
   }
 }
 
