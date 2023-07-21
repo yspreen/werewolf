@@ -8,6 +8,9 @@ import { computed, ref } from 'vue'
 
 const selectedUser = ref(null as string | null)
 const isHunter = computed(() => myRole.value === Role[Role.HUNTER])
+const showVoting = computed(
+  () => store.room?.nightCycle === +NightCycle.HUNTER || store.room?.hunterDayKill
+)
 
 async function killUser(userId: string | null) {
   selectedUser.value = null
@@ -17,7 +20,7 @@ async function killUser(userId: string | null) {
 </script>
 
 <template>
-  <div class="full-width" v-if="isHunter && store.room?.nightCycle === +NightCycle.HUNTER">
+  <div class="full-width" v-if="isHunter && showVoting">
     <div>You got killed. As the hunter you choose one person to take with you:</div>
     <div v-for="member in futureAliveMembers" :key="member.userId" class="row">
       {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}

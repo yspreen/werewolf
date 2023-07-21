@@ -13,11 +13,13 @@ const description = computed(() => {
             Your objective is to outnumber the villagers without revealing your identity.
             You must work together with your fellow werewolves, carefully navigating the
             suspicions of the villagers and steering blame away from yourselves. You win the
-            game when the number of werewolves equals or surpasses the number of villagers.
+            game when there's only werewolves left alive.
+            <!-- when the number of werewolves equals
+                or surpasses the number of villagers.-->
             <br>
             <br>
             During the night all living werewolves pick one target to kill & eat.
-            If the target is the diseased, you won't be able to kill tomorrow.`
+            If the target is the diseased, the next night's kill will be ineffective.`
     case Role.VILLAGER:
       return `
             As a Villager, your goal is survival and uncovering the hidden Werewolves
@@ -171,6 +173,9 @@ function close() {
   .header {
     padding-bottom: 0;
     font-size: 1.5em;
+  }
+  .content {
+    padding-bottom: 2em;
   }
 }
 

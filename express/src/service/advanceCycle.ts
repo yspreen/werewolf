@@ -3,6 +3,7 @@ import { CYCLE_COUNT, NightCycle, Room } from '../models/room'
 import { checkWinner, ensureLoverKilled, updateRoom } from './updateRoom'
 
 export async function advanceCycle(room: Room) {
+  room.hunterDayKill = false
   ensureLoverKilled(room)
 
   if (room.nightCycle === NightCycle.LOVERS) {
