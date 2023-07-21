@@ -4,7 +4,7 @@ import { getCleanRoomIds } from '../service/getCleanRoomIds'
 import { getUser } from '../service/getUser'
 import { advanceCycle } from '../service/advanceCycle'
 import { Role } from '../models/role'
-import { setWinner, updateRoom } from '../service/updateRoom'
+import { ensureLoverKilled, setWinner, updateRoom } from '../service/updateRoom'
 
 export async function advanceCycleEndpoint(req: Request, res: Response) {
   const user = await getUser(req, res)
@@ -29,7 +29,13 @@ export async function advanceCycleEndpoint(req: Request, res: Response) {
 
     if (room.givenRoles?.[andKillUserId] === Role[Role.JESTER]) setWinner(room, 'JESTER')
 
-    if (room.givenRoles?.[andKillUserId] === Role[Role.HUNTER]) {
+    let hunterKilled = room.givenRoles?.[andKillUserId] === Role[Role.HUNTER]
+    if (room.lovers.includes(andKillUserId)) {
+      const otherLover = room.lovers.filter((val) => val !== andKillUserId)[0]
+      if (room.givenRoles?.[otherLover] === Role[Role.HUNTER]) hunterKilled = true
+    }
+
+    if (hunterKilled) {
       room.hunterDayKill = true
       await updateRoom(room)
       return res.json({ room })
