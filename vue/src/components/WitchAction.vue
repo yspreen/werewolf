@@ -9,7 +9,7 @@ import { computed, ref } from 'vue'
 const selectedUser = ref(null as string | null)
 const stage = ref(initialStep())
 const options = computed(() => {
-  if (stage == 0) return store.room?.diedTonight ?? [];
+  if (stage.value == 0) return store.room?.diedTonight ?? [];
   return aliveMembers.value 
 })
 
