@@ -8,6 +8,10 @@ import { computed, ref } from 'vue'
 
 const selectedUser = ref(null as string | null)
 const stage = ref(initialStep())
+const options = computed(() => {
+  if (stage == 0) return store.room?.diedTonight ?? [];
+  return aliveMembers.value 
+})
 
 function initialStep(): number {
   if (!store.room?.witchPotions[0]) return 1
@@ -40,7 +44,7 @@ async function step() {
   <div class="col" v-if="isWitch && store.room?.nightCycle === NightCycle.WITCH">
     <div class="full-width">{{ stage == 0 ? 'heal' : 'kill' }} someone?</div>
     <div class="full-width">
-      <div v-for="member in aliveMembers" :key="member.userId" class="row">
+      <div v-for="member in options" :key="member.userId" class="row">
         {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
         <button
           class="btn"
