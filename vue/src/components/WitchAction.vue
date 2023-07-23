@@ -9,8 +9,8 @@ import { computed, ref } from 'vue'
 const selectedUser = ref(null as string | null)
 const stage = ref(initialStep())
 const options = computed(() => {
-  if (stage.value == 0) return store.room?.diedTonight.map((id) => (store.users[id] ?? ({} as any))) ?? [];
-  return aliveMembers.value 
+  if (stage.value == 0) return store.room?.diedTonight.map((id) => store.users[id]) ?? []
+  return aliveMembers.value
 })
 
 function initialStep(): number {
