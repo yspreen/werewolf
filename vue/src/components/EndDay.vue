@@ -15,8 +15,6 @@ function startVoteResult() {
 async function start() {
   voteResultSelection.value = false
   if (!store.room) return
-  store.room.nightCycle += 1
-  store.room.v += 1
   if (selectedUser.value) await advanceCycle(selectedUser.value)
   else await advanceCycle()
 }
