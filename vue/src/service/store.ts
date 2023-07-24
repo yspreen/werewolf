@@ -10,7 +10,8 @@ export const store = reactive({
   nightMode: false,
   enableSound: false,
   showIfIDiedJustNow: false,
-  showRoleInfo: null
+  showRoleInfo: null,
+  timerSecondsLeft: -1
 }) as {
   user: User | null
   room: Room | null
@@ -19,6 +20,7 @@ export const store = reactive({
   enableSound: boolean
   showIfIDiedJustNow: boolean
   showRoleInfo: Role | null
+  timerSecondsLeft: number
 }
 
 export const isDead = computed(() => store.room?.dead.includes(store.user?.userId ?? '') ?? false)

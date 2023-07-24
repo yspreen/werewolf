@@ -3,6 +3,7 @@ import { store } from './store'
 const AUDIO_BUFFER_SIZE = 5
 
 export async function warmUp() {
+  if (audios.length) return
   for (let index = 0; index < AUDIO_BUFFER_SIZE; index++) {
     const soundEffect = new Audio()
     soundEffect.autoplay = true
@@ -13,9 +14,9 @@ export async function warmUp() {
     audios.push(soundEffect)
   }
 }
-export async function playSound(file: AudioFile) {
+export async function playSound(file: AudioFile, forcePlay: boolean = false) {
   const name = AudioFile[file]
-  if (!store.enableSound) return
+  if (!store.enableSound && !forcePlay) return
   audios[currentAudio].src = `/${name}.mp3`
   currentAudio = (currentAudio + 1) % AUDIO_BUFFER_SIZE
   audios[(currentAudio + 1) % AUDIO_BUFFER_SIZE].src = emptySound
@@ -31,7 +32,8 @@ export enum AudioFile {
   thief,
   werewolves,
   win,
-  witch
+  witch,
+  alarm
 }
 
 let currentAudio = 0
