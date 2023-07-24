@@ -53,7 +53,9 @@ async function timer() {
   const newRoom = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
   if (!newRoom) return
   if (store.room && store.room.v > newRoom.v) return
-  if (newRoom.memberIds.length > (store.room?.memberIds.length ?? 0)) store.users = {}
+  Object.keys(store.users).forEach((userId) => {
+    if (!newRoom.memberIds.includes(userId)) delete store.users[userId]
+  })
   store.room = newRoom
   if (!Object.keys(store.room?.roleCount ?? {}).length) {
     allRoles.forEach((role) => {
