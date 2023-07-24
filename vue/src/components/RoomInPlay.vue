@@ -30,7 +30,7 @@ const noSleep = new NoSleep()
 onMounted(async () => {
   await loadUser()
   await timer()
-  interval = setInterval(() => timer().then(() => {}), 1000)
+  interval = setInterval(() => timer().catch(console.error), 1000)
   await noSleep.enable()
 })
 
@@ -48,10 +48,11 @@ async function timer() {
   if (waitingForDelay.value) return
   const newRoom: Room = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
   if (!newRoom) return
-  if (store.room && store.room.v > newRoom.v) return
   if (!newRoom.memberIds.includes(store.user?.userId ?? '')) {
+    store.room = null
     return router.push('/')
   }
+  if (store.room && store.room.v > newRoom.v) return
   await fetchMembers(newRoom)
   store.nightMode = newRoom.nightCycle > 0
   if (newRoom.winner && store.room && !store.room.winner) {

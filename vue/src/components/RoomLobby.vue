@@ -39,7 +39,7 @@ let interval = null as NodeJS.Timer | null
 onMounted(async () => {
   await loadUser()
   await timer()
-  interval = setInterval(() => timer().then(() => {}), 1000)
+  interval = setInterval(() => timer().catch(console.error), 1000)
 })
 
 onUnmounted(() => {
@@ -61,6 +61,7 @@ async function timer() {
     })
   }
   if (!store.room?.memberIds.includes(store.user?.userId ?? '')) {
+    store.room = null
     return router.push('/')
   }
   if (store.room.givenRoles !== null) {
