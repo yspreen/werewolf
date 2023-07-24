@@ -16,6 +16,7 @@ export async function cycleChanged() {
 
   if (cycle === NightCycle.THIEF) playSound(AudioFile.thief)
   if (cycle === NightCycle.CUPID) playSound(AudioFile.cupid)
+  if (cycle === NightCycle.CUPID_WALK) playSound(AudioFile.cupidWalk)
   if (cycle === NightCycle.WEREWOLF) playSound(AudioFile.werewolves)
   if (cycle === NightCycle.SEER) playSound(AudioFile.seer)
   if (cycle === NightCycle.HUNTER) playSound(AudioFile.hunter)

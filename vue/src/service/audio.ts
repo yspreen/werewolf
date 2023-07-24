@@ -23,6 +23,7 @@ export async function playSound(file: AudioFile) {
 
 export enum AudioFile {
   cupid,
+  cupidWalk,
   day,
   hunter,
   lovers,
