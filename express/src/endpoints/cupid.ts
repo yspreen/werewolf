@@ -17,7 +17,6 @@ export async function cupidEndpoint(req: Request, res: Response) {
   if (!room.givenRoles || room.givenRoles[user.userId] !== Role[Role.CUPID]) res.send({})
 
   room.lovers = lovers
-  room.givenRoles![user.userId] = Role[Role.VILLAGER]
   await advanceCycle(room)
 
   res.send({})

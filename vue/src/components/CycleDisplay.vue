@@ -36,7 +36,7 @@ const cycleList = computed(() =>
 </script>
 
 <template>
-  <div class="full-width emojis" v-if="props.waitingForDelay">
+  <div class="full-width emojis" v-if="props.waitingForDelay || ~~cycle !== cycle">
     <span class="emoji">⏳</span>
   </div>
 

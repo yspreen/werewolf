@@ -2,7 +2,18 @@ import { Role } from '../models/role'
 import { CYCLE_COUNT, NightCycle, Room } from '../models/room'
 import { checkWinner, ensureLoverKilled, updateRoom } from './updateRoom'
 
+function removeCupid(room: Room) {
+  if (!room.givenRoles) return
+  if (room.nightCycle !== NightCycle.CUPID_WALK) return
+  let cupidId: string | null = null
+  room.memberIds.forEach((userId) => {
+    if (room.givenRoles![userId] === Role[Role.CUPID]) cupidId = userId
+  })
+  if (!cupidId) return
+  room.givenRoles[cupidId] = Role[Role.VILLAGER]
+}
 export async function advanceCycle(room: Room) {
+  removeCupid(room)
   room.hunterDayKill = false
   ensureLoverKilled(room)
 
