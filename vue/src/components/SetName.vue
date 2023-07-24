@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { api } from '@/service/api'
-import { ref } from 'vue'
+import { store } from '@/service/store'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const name = ref('')
@@ -15,6 +16,11 @@ async function submit() {
   })
   await router.push('/')
 }
+
+onMounted(() => {
+  store.users = {}
+  store.user = null
+})
 </script>
 
 <template>
