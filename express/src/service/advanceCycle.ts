@@ -17,7 +17,7 @@ export async function advanceCycle(room: Room) {
   }
   room.nightCycle += 1
   if (room.nightCycle === NightCycle.THIEF && !hasThief(room)) room.nightCycle += 1
-  if (room.nightCycle === NightCycle.CUPID && !hasCupid(room)) room.nightCycle += 1
+  if (room.nightCycle === NightCycle.CUPID && !hasCupid(room)) room.nightCycle += 2
   if (room.nightCycle === NightCycle.LOVERS && !shouldShowLovers(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.SEER && !hasSeer(room)) room.nightCycle += 1
   if (room.nightCycle === NightCycle.WITCH && !hasWitch(room)) room.nightCycle += 1

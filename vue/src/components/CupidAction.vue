@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Role } from '@/models/role'
 import { NightCycle } from '@/models/room'
+import { advanceCycle } from '@/service/advanceCycle'
 import { api } from '@/service/api'
 import { aliveMembers, myRole, store } from '@/service/store'
 import { computed, ref } from 'vue'
@@ -48,5 +49,11 @@ async function step() {
         confirm {{ store.users[selectedUser ?? '']?.name ?? '&lt; select &gt;' }}
       </button>
     </div>
+  </div>
+  <div v-if="isCupid && store.room?.nightCycle === NightCycle.CUPID_WALK" class="col">
+    <div class="full-width">
+      Now walk around the room to tap the lovers. Once you're back on your seat, continue:
+    </div>
+    <button class="btn" @click="advanceCycle()">I've tapped them.</button>
   </div>
 </template>

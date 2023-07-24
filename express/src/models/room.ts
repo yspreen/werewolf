@@ -53,6 +53,7 @@ export enum NightCycle {
   DAY,
   THIEF,
   CUPID,
+  CUPID_WALK,
   LOVERS,
   WEREWOLF,
   SEER,
