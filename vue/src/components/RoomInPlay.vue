@@ -19,8 +19,8 @@ import CycleDisplay from './CycleDisplay.vue'
 import ShowWinner from './ShowWinner.vue'
 import { type Room } from '@/models/room'
 import NoSleep from '@uriopass/nosleep.js'
-import { playAudio, AudioFile } from '@/service/cycleChanged'
 import ThiefAction from './ThiefAction.vue'
+import { AudioFile, playSound } from '@/service/audio'
 
 const router = useRouter()
 
@@ -55,7 +55,7 @@ async function timer() {
   await fetchMembers(newRoom)
   store.nightMode = newRoom.nightCycle > 0
   if (newRoom.winner && store.room && !store.room.winner) {
-    playAudio(AudioFile.win)
+    playSound(AudioFile.win)
     noSleep.disable()
   }
   if (!store.room || store.room?.nightCycle === newRoom.nightCycle || newRoom.winner) {
