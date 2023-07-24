@@ -3,7 +3,6 @@ import type { WINNER } from '@/models/room'
 import { store } from '@/service/store'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import MarqueeText from './MarqueeText.vue'
 
 function winnerEmoji(winner: WINNER) {
   switch (winner) {

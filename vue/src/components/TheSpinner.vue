@@ -1,15 +1,23 @@
 <template>
-  <div class="spinner"></div>
+  <div class="spinner">
+    <img src="wheel.svg" alt="" />
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .spinner {
-  border: 16px solid #00000020;
-  border-top: 16px solid #000000;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
+  width: 7.8rem;
+  height: 7.8rem;
+  animation: spin 3s linear infinite;
+  position: relative;
+
+  img {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+  }
 }
 
 @keyframes spin {
