@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { advanceCycle } from '@/service/advanceCycle'
-import { futureAliveMembers, isDead, store } from '@/service/store'
+import { futureAliveMembers, store } from '@/service/store'
 import { ref } from 'vue'
 import ToggleSwitch from './ToggleSwitch.vue'
 import { warmUp } from '@/service/audio'

@@ -21,7 +21,7 @@ import { type Room } from '@/models/room'
 import NoSleep from '@uriopass/nosleep.js'
 import ThiefAction from './ThiefAction.vue'
 import { AudioFile, playSound } from '@/service/audio'
-
+import DayTimer from './DayTimer.vue'
 const router = useRouter()
 
 let interval = null as NodeJS.Timer | null
@@ -75,6 +75,7 @@ async function timer() {
 <template>
   <show-winner v-if="store.room?.winner" />
   <div class="col" v-else>
+    <day-timer v-if="!waitingForDelay" />
     <cycle-display :waitingForDelay="waitingForDelay" />
     <role-display />
     <death-display v-if="!waitingForDelay" />
