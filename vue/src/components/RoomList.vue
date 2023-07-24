@@ -2,7 +2,7 @@
 import { store } from '@/service/store'
 import type { Room } from '@/models/room'
 import { onMounted, onUnmounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { api } from '@/service/api'
 import { loadUser } from '@/service/loadUser'
 
@@ -42,7 +42,9 @@ async function newRoom() {
 
 <template>
   <div class="col">
-    <div>your name: {{ store.user?.name }}</div>
+    <div>
+      your name: <router-link to="/set-name">{{ store.user?.name }} ✏️</router-link>
+    </div>
     <div v-for="room in rooms" :key="room.roomId" class="row">
       <a href="javascript:void(0)" @click="open(room)">{{ room.name }}</a>
     </div>

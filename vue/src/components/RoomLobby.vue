@@ -53,6 +53,7 @@ async function timer() {
   const newRoom = (await api.get(`/room/${router.currentRoute.value.params.roomId}`)).room
   if (!newRoom) return
   if (store.room && store.room.v > newRoom.v) return
+  if (newRoom.memberIds.length > (store.room?.memberIds.length ?? 0)) store.users = {}
   store.room = newRoom
   if (!Object.keys(store.room?.roleCount ?? {}).length) {
     allRoles.forEach((role) => {
@@ -83,6 +84,9 @@ async function kick(userId: string) {
   store.room.memberIds = store.room.memberIds.filter((val) => val !== userId)
   await api.post('/update-room', { room: store.room })
 }
+async function leave() {
+  await api.post('/leave-room', { roomId: store.room?.roomId })
+}
 </script>
 
 <template>
@@ -103,6 +107,9 @@ async function kick(userId: string) {
       >
         {{ startButtonTitle }}
       </button>
+    </div>
+    <div class="row" v-else>
+      <button class="btn" href="javascript:void(0)" @click="leave">leave</button>
     </div>
   </div>
 </template>

@@ -16,6 +16,7 @@ import { witchEndpoint } from './endpoints/witch'
 import { hunterEndpoint } from './endpoints/hunter'
 import { cupidEndpoint } from './endpoints/cupid'
 import { thiefEndpoint } from './endpoints/thief'
+import { leaveRoomEndpoint } from './endpoints/leaveRoom'
 export const app = express()
 
 export async function init() {
@@ -50,6 +51,7 @@ export async function init() {
   app.post('/hunter', hunterEndpoint)
   app.post('/cupid', cupidEndpoint)
   app.post('/thief', thiefEndpoint)
+  app.post('/leave-room', leaveRoomEndpoint)
 
   await redisInit()
 }
