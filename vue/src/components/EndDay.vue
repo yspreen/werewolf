@@ -39,7 +39,7 @@ async function start() {
       <span v-else>nobody voted</span>
     </button>
   </div>
-  <div class="row" v-if="!isDead && store.room?.nightCycle === 0 && !voteResultSelection">
+  <div class="row" v-if="store.room?.nightCycle === 0 && !voteResultSelection">
     <button class="btn" @click="startVoteResult()">kill by vote</button>
     <span class="switch-container" @click="warmUp">
       <span class="sm">Narrate</span> 🔊
