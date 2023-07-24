@@ -15,6 +15,8 @@ function cycleEmoji(cycle: NightCycle) {
       return '🥷'
     case NightCycle.CUPID:
       return '🏹'
+    case NightCycle.CUPID_WALK:
+      return '🚶'
     case NightCycle.LOVERS:
       return '💘'
     case NightCycle.WEREWOLF:
