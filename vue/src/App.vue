@@ -61,6 +61,22 @@ input,
 textarea {
   font-size: 20pt;
 }
+
+@media screen and (max-width: 400px) {
+  body,
+  input,
+  textarea {
+    font-size: 16pt;
+  }
+}
+@media screen and (max-width: 320px) {
+  body,
+  input,
+  textarea {
+    font-size: 12pt;
+  }
+}
+
 div {
   margin: 0;
   padding: 0;

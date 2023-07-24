@@ -22,7 +22,7 @@ async function killUser(userId: string | null) {
   <div class="full-width" v-if="isWerewolf && store.room?.nightCycle === +NightCycle.WEREWOLF">
     <div class="sm mb-1">
       Note: First person to click "kill" makes the decision. Make sure to vote with your fellow
-      werewolfs before committing!
+      werewolves before committing!
     </div>
     <div v-for="member in aliveMembers" :key="member.userId" class="row">
       {{ member.name }} {{ member.userId === store.user?.userId ? '(me)' : '' }}
