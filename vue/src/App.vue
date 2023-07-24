@@ -123,54 +123,34 @@ input {
 .btn.danger {
   opacity: 0.4;
 }
-.pt-1 {
-  padding-top: 1em;
+
+$directions: (
+  't': 'top',
+  'b': 'bottom',
+  'l': 'left',
+  'r': 'right'
+);
+$sizes: (
+  3: 3em,
+  2: 2em,
+  1: 1em,
+  05: 0.5em
+);
+$properties: (
+  'p': 'padding',
+  'm': 'margin'
+);
+
+@each $prop, $property in $properties {
+  @each $sizeKey, $sizeValue in $sizes {
+    @each $dirKey, $dirValue in $directions {
+      .#{$prop}#{$dirKey}-#{$sizeKey} {
+        #{$property}-#{$dirValue}: $sizeValue;
+      }
+    }
+  }
 }
-.mt-1 {
-  margin-top: 1em;
-}
-.pb-1 {
-  padding-bottom: 1em;
-}
-.mb-1 {
-  margin-bottom: 1em;
-}
-.pt-05 {
-  padding-top: 0.5em;
-}
-.mt-05 {
-  margin-top: 0.5em;
-}
-.pb-05 {
-  padding-bottom: 0.5em;
-}
-.mb-05 {
-  margin-bottom: 0.5em;
-}
-.pl-1 {
-  padding-left: 1em;
-}
-.ml-1 {
-  margin-left: 1em;
-}
-.pr-1 {
-  padding-right: 1em;
-}
-.mr-1 {
-  margin-right: 1em;
-}
-.pl-05 {
-  padding-left: 0.5em;
-}
-.ml-05 {
-  margin-left: 0.5em;
-}
-.pr-05 {
-  padding-right: 0.5em;
-}
-.mr-05 {
-  margin-right: 0.5em;
-}
+
 .sm {
   font-size: 0.8em;
 }
