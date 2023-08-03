@@ -126,33 +126,27 @@ export function descriptionFor(role: Role): string {
 }
 
 export const instructorInfo = `
-To start a new game, just pick the roles you want to include and start the game! All players can see their role plus a little help text once the game has started. Cupid, thief, and jester are recommended for experienced players. Especially the thief can be tricky because whenever a thief is in play you don't know which special roles are drawn for any given game.<br>
+Starting a new game is simple - select the roles you wish to include and begin the game! Players will be able to see their role and a corresponding help text once the game is underway. The roles of Cupid, Thief, and Jester are best suited for experienced players due to their unique complexities. Notably, when the Thief is in play, the exact special roles in the game remain unknown.<br>
 <br>
-During the game, at least one person should enable the audio narration to hear which role wakes up.<br>
+During gameplay, it's recommended that at least one player enables the audio narration to follow which role is currently active. As the game host, ensure all players understand the importance of closing their eyes during the night cycle when it's not their turn.<br>
 <br>
-As narrator, you should make sure to teach everyone about closing their eyes whenever it's not their turn in the night cycle.<br>
+Clarify the voting process to all participants. Werewolves can signal their intended target, but the final decision should be confirmed on the device only once they've reached a consensus.<br>
 <br>
-You should also make sure that everyone knows how voting works. Werewolves can point at who they want to kill, but the action should only be confirmed on the phone once they all agree on their victim.<br>
+For a group of new players who aren't acquainted with each other, it can be beneficial to arrange everyone according to the name order in the game lobby. This order will persist throughout the game, ensuring a consistent player sequence.<br>
 <br>
-With a group of new players that don't all know each other, it can be helpful to arrange everyone in order of the names in the room lobby. This list remains in order for the entire game. That way two people sitting next to each other are right next to each other on the list.<br>
+Note that a player's role is only revealed if they die during the daytime. Deaths during the night cycle keep the roles hidden.<br>
 <br>
-Roles are only revealed on death if it happens during daytime. Night time deaths remain hidden.<br>
+Daytime voting proceeds as follows:<br>
+Any player can nominate another player for execution. Once another player seconds this nomination, the accused has a preset time (either 60 or 30 seconds, depending on your chosen format) to defend themselves. During this defense period, only the defendant may speak unless they invite others to do so. Upon time expiry (remember to use the timer!), a public vote is held. If more than half of the remaining players vote in favor of execution, the accused is eliminated and the day ends. If the accused survives, they have the chance to nominate the next person for the trial. This process continues until no new nominations are made or a player is executed.<br>
 <br>
-Daytime voting works as follows:<br>
-Everyone can nominate someone to be killed. As soon as anyone else seconds the nomination, that person now has 60s (or 30, you can choose a quicker format) to defend themselves. During the defense, nobody gets to talk except for the defendant. They can call on others to speak, but nobody gets to say anything except if called upon.<br>
-Once time's up (use the timer!) there's a public vote. On the count of three, everyone raises their hand if they want to kill the accused. If more than 50% of the living players vote yes, they get confirmed ("kill by vote") and this day is over.<br>
-If they live, they get to nominate the next person. The next defense begins.<br>
-This goes on until nobody new gets nominated or someone gets killed.<br>
-<br>
-If cupid is in play:<br>
-The first night is special because cupid has to be able to walk around the table. Everyone should stand up for the first night so that nobody can hear who stood up and moved their chair. Cupid should sneak as silently as possible so that nobody knows who they are.<br>
+When Cupid is in play:<br>
+The first night requires special attention because Cupid needs to move around the table. To prevent players from detecting who Cupid is, all players should stand up during the first night, ensuring movements aren't heard.<br>
 <br>
 FAQ:<br>
-The witch only gets each of their two potion once per game.<br>
-The seer only sees if someone is good or bad. Not if they have a special role. All non-werewolf roles are show as villager.<br>
-The witch can heal themselves.<br>
-Cupid can pick themselves.<br>
-The hunter gets their own night cycle if they get killed.<br>
+The Witch only use each of their two potions once per game.<br>
+The Seer can only distinguish between a Werewolf and a non-Werewolf. They cannot identify special roles, which appear as villagers to them.<br>
+The Witch has the ability to heal themselves if that potion hasn't been used yet.<br>
+Cupid can choose themselves as one of the two lovers.<br>
+The Hunter has a unique night cycle if they are killed.<br>
 <br>
-Happy werewolfing!
-`
+Enjoy the game, and happy werewolfing!`
