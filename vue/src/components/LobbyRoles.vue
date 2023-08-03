@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Role, allRoles, roleName } from '@/models/role'
+import { Role, allRoles, roleName, stringToRole } from '@/models/role'
 import { api } from '@/service/api'
 import { store } from '@/service/store'
 import { computed } from 'vue'
@@ -21,9 +21,11 @@ async function changeCount(role: string, diff: number) {
 <template>
   <div class="row sm pt-1">roles:</div>
   <div class="row" v-for="role in allRoles" :key="role">
-    <span :class="store.room?.roleCount[role] === 0 ? 'semi-transparent' : ''">{{
-      roleName(role)
-    }}</span>
+    <u
+      :class="store.room?.roleCount[role] === 0 ? 'semi-transparent' : ''"
+      @click.prevent="store.showRoleInfo = stringToRole(role)"
+      >{{ roleName(role) }}</u
+    >
     <span
       ><button @click.prevent="changeCount(role, -1)" v-if="isAdmin">-</button>
       {{ store.room?.roleCount[role] }}
