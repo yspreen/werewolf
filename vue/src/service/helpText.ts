@@ -1,10 +1,7 @@
-<script setup lang="ts">
-import { Role, roleName } from '@/models/role'
-import { store } from '@/service/store'
-import { computed } from 'vue'
+import { Role } from '@/models/role'
 
-const description = computed(() => {
-  switch (store.showRoleInfo) {
+export function descriptionFor(role: Role): string {
+  switch (role) {
     case Role.WEREWOLF:
       return `
             By day, you appear as an ordinary villager, indistinguishable from the others.
@@ -126,65 +123,36 @@ const description = computed(() => {
             You only win if killed during the day. If the werewolves eat you,
             you lose.`
   }
-  return ''
-})
-
-function close() {
-  store.showRoleInfo = null
-}
-</script>
-
-<template>
-  <div class="modal-bg" v-if="store.showRoleInfo !== null" @click="close">
-    <div class="modal" @click.stop="() => {}">
-      <div class="header">{{ roleName(Role[store.showRoleInfo]) }}</div>
-      <div class="content" v-html="description" />
-      <a class="x" @click="close" href="javascript:void(0)">x</a>
-    </div>
-  </div>
-</template>
-
-<style lang="scss" scoped>
-.modal-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #00000020;
-  body.night & {
-    background: #ffffff30;
-  }
-  min-height: 100svh;
-  padding: 1em;
 }
 
-.modal {
-  position: relative;
-  background: #ffffff;
-  body.night & {
-    background: #000000;
-  }
-  min-height: 50svh;
-  max-width: 600px;
-  margin: auto;
-  & > div {
-    padding: 1em;
-  }
-  .header {
-    padding-bottom: 0;
-    font-size: 1.5em;
-  }
-  .content {
-    padding-bottom: 2em;
-  }
-}
-
-.x {
-  color: unset;
-  display: inline-block;
-  position: absolute;
-  top: 0.3em;
-  right: 0.7em;
-  font-size: 1.5em;
-}
-</style>
+export const instructorInfo = `
+To start a new game, just pick the roles you want to include and start the game! All players can see their role plus a little help text once the game has started. Cupid, thief, and jester are recommended for experienced players. Especially the thief can be tricky because whenever a thief is in play you don't know which special roles are drawn for any given game.<br>
+<br>
+During the game, at least one person should enable the audio narration to hear which role wakes up.<br>
+<br>
+As narrator, you should make sure to teach everyone about closing their eyes whenever it's not their turn in the night cycle.<br>
+<br>
+You should also make sure that everyone knows how voting works. Werewolves can point at who they want to kill, but the action should only be confirmed on the phone once they all agree on their victim.<br>
+<br>
+With a group of new players that don't all know each other, it can be helpful to arrange everyone in order of the names in the room lobby. This list remains in order for the entire game. That way two people sitting next to each other are right next to each other on the list.<br>
+<br>
+Roles are only revealed on death if it happens during daytime. Night time deaths remain hidden.<br>
+<br>
+Daytime voting works as follows:<br>
+Everyone can nominate someone to be killed. As soon as anyone else seconds the nomination, that person now has 60s (or 30, you can choose a quicker format) to defend themselves. During the defense, nobody gets to talk except for the defendant. They can call on others to speak, but nobody gets to say anything except if called upon.<br>
+Once time's up (use the timer!) there's a public vote. On the count of three, everyone raises their hand if they want to kill the accused. If more than 50% of the living players vote yes, they get confirmed ("kill by vote") and this day is over.<br>
+If they live, they get to nominate the next person. The next defense begins.<br>
+This goes on until nobody new gets nominated or someone gets killed.<br>
+<br>
+If cupid is in play:<br>
+The first night is special because cupid has to be able to walk around the table. Everyone should stand up for the first night so that nobody can hear who stood up and moved their chair. Cupid should sneak as silently as possible so that nobody knows who they are.<br>
+<br>
+FAQ:<br>
+The witch only gets each of their two potion once per game.<br>
+The seer only sees if someone is good or bad. Not if they have a special role. All non-werewolf roles are show as villager.<br>
+The witch can heal themselves.<br>
+Cupid can pick themselves.<br>
+The hunter gets their own night cycle if they get killed.<br>
+<br>
+Happy werewolfing!
+`

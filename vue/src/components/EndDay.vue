@@ -39,16 +39,21 @@ async function start() {
       <span v-else>nobody voted</span>
     </button>
   </div>
-  <div class="row" v-if="store.room?.nightCycle === 0 && !voteResultSelection">
-    <button class="btn" @click="startVoteResult()">kill by vote</button>
-    <span class="switch-container" @click="warmUp">
-      <span class="sm">Narrate</span> 🔊
-      <toggle-switch
-        class="ml-05"
-        @changed="(v) => (store.enableSound = v)"
-        :initial-value="store.enableSound"
-      />
-    </span>
+  <div class="col" v-else>
+    <div class="row" v-if="store.room?.nightCycle === 0">
+      <button class="btn" @click="startVoteResult()">kill by vote</button>
+      <span class="switch-container" @click="warmUp">
+        <span class="sm">Narrate</span> 🔊
+        <toggle-switch
+          class="ml-05"
+          @changed="(v) => (store.enableSound = v)"
+          :initial-value="store.enableSound"
+        />
+      </span>
+    </div>
+    <div class="row center sm">
+      <a @click="store.showAllRoles = true" href="javascript:void(0)">show all roles</a>
+    </div>
   </div>
 </template>
 
@@ -56,5 +61,8 @@ async function start() {
 .switch-container {
   display: flex;
   align-items: center;
+}
+.center {
+  justify-content: center;
 }
 </style>

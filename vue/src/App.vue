@@ -2,7 +2,7 @@
 import { watch } from 'vue'
 import { RouterView } from 'vue-router'
 import { store } from './service/store'
-import RoleInfo from './components/RoleInfo.vue'
+import InfoModal from './components/InfoModal.vue'
 
 watch(store, (val) => {
   if (val.nightMode) {
@@ -15,7 +15,7 @@ watch(store, (val) => {
 
 <template>
   <router-view />
-  <role-info />
+  <info-modal />
 </template>
 
 <style lang="scss">
@@ -131,10 +131,10 @@ $directions: (
   'r': 'right'
 );
 $sizes: (
-  3: 3em,
-  2: 2em,
-  1: 1em,
-  05: 0.5em
+  '3': 3em,
+  '2': 2em,
+  '1': 1em,
+  '05': 0.5em
 );
 $properties: (
   'p': 'padding',
@@ -153,5 +153,28 @@ $properties: (
 
 .sm {
   font-size: 0.8em;
+}
+
+span.help {
+  font-size: 0.7em;
+  font-family: sans-serif;
+  // border: 1px solid black;
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  cursor: pointer;
+  font-weight: 800;
+  transform: translateY(-0.15em);
+
+  background-color: black;
+  color: white;
+
+  body.night & {
+    color: black;
+    background-color: #fff9ed;
+  }
 }
 </style>
