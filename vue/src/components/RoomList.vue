@@ -43,13 +43,21 @@ async function newRoom() {
 <template>
   <div class="col">
     <div>
-      your name: <router-link to="/set-name">{{ store.user?.name }} ✏️</router-link>
+      Your Name: <router-link to="/set-name">{{ store.user?.name }} ✏️</router-link>
     </div>
     <div v-for="room in rooms" :key="room.roomId" class="row">
       <a href="javascript:void(0)" @click="open(room)">{{ room.name }}</a>
     </div>
-    <button @click="newRoom" class="btn">new room</button>
+    <button @click="newRoom" class="btn">New Room</button>
+    <div @click="store.showInstructions = true" class="mt-1 row help-row sm">
+      <a @click="store.showInstructions = true" href="javascript:void(0)">How To Play</a>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.help-row {
+  display: flex;
+  justify-content: end;
+}
+</style>

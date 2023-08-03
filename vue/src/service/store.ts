@@ -11,6 +11,8 @@ export const store = reactive({
   enableSound: false,
   showIfIDiedJustNow: false,
   showRoleInfo: null,
+  showInstructions: false,
+  showAllRoles: false,
   timerSecondsLeft: -1
 }) as {
   user: User | null
@@ -20,6 +22,8 @@ export const store = reactive({
   enableSound: boolean
   showIfIDiedJustNow: boolean
   showRoleInfo: Role | null
+  showInstructions: boolean
+  showAllRoles: boolean
   timerSecondsLeft: number
 }
 

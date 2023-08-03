@@ -41,26 +41,4 @@ a {
   background: unset;
   text-decoration: underline;
 }
-span.help {
-  font-size: 0.7em;
-  font-family: sans-serif;
-  // border: 1px solid black;
-  display: inline-flex;
-  width: 1em;
-  height: 1em;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  cursor: pointer;
-  font-weight: 800;
-  transform: translateY(-0.15em);
-
-  background-color: black;
-  color: white;
-
-  body.night & {
-    color: black;
-    background-color: #fff9ed;
-  }
-}
 </style>
