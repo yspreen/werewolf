@@ -39,8 +39,8 @@ async function start() {
       <span v-else>nobody voted</span>
     </button>
   </div>
-  <div class="col" v-else>
-    <div class="row" v-if="store.room?.nightCycle === 0">
+  <div class="col" v-if="!voteResultSelection && store.room?.nightCycle === 0">
+    <div class="row">
       <button class="btn" @click="startVoteResult()">voting has finished</button>
       <span class="switch-container" @click="warmUp">
         <span class="sm">Narrate</span> 🔊
@@ -51,7 +51,7 @@ async function start() {
         />
       </span>
     </div>
-    <div class="row center sm" v-if="store.room?.nightCycle === 0">
+    <div class="row center sm">
       <a @click="store.showAllRoles = true" href="javascript:void(0)">show all roles</a>
     </div>
   </div>
