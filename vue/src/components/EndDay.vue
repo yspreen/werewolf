@@ -51,7 +51,7 @@ async function start() {
         />
       </span>
     </div>
-    <div class="row center sm">
+    <div class="row center sm" v-if="store.room?.nightCycle === 0">
       <a @click="store.showAllRoles = true" href="javascript:void(0)">show all roles</a>
     </div>
   </div>
