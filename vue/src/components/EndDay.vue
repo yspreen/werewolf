@@ -35,7 +35,7 @@ async function start() {
       <button class="btn" @click="selectedUser = null" v-else>deselect</button>
     </div>
     <button class="btn" @click="start()">
-      <span v-if="selectedUser"> we killed {{ store.users[selectedUser ?? '']?.name }} </span>
+      <span v-if="selectedUser"> we killed {{ store.users[selectedUser ?? '']?.name }} and they revealed their role </span>
       <span v-else>nobody voted</span>
     </button>
   </div>
