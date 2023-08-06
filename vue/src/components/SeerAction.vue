@@ -12,8 +12,8 @@ const revealed = ref(null as User | null)
 const isSeer = computed(() => myRole.value === Role[Role.SEER])
 const revealedRole = computed(() =>
   store.room?.givenRoles?.[revealed.value?.userId ?? ''] == Role[Role.WEREWOLF]
-    ? 'Werewolf 👎'
-    : 'not a Werewolf 👍'
+    ? 'Werewolf 🐺'
+    : 'Village Ally 🧑‍🌾'
 )
 
 async function seerStep() {
