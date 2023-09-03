@@ -5,6 +5,7 @@ import { getUser } from '../service/getUser'
 import { advanceCycle } from '../service/advanceCycle'
 import { Role } from '../models/role'
 import { setWinner, updateRoom } from '../service/updateRoom'
+import { NightCycle } from '../models/room'
 
 export async function advanceCycleEndpoint(req: Request, res: Response) {
   const user = await getUser(req, res)
@@ -27,7 +28,7 @@ export async function advanceCycleEndpoint(req: Request, res: Response) {
     return res.json({ error: 'stale cycle' })
   }
 
-  if (andKillUserId) {
+  if (andKillUserId && room.nightCycle === NightCycle.DAY) {
     /// Vote during the day
     room.diedTonight.push(andKillUserId)
 
